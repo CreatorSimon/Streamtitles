@@ -1,0 +1,35 @@
+﻿<Page
+    x:Class="Streamtitels.OptionsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Streamtitels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:muxc="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    mc:Ignorable="d" Background="#FF6441A5">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="100" />
+            <RowDefinition Height="100" />
+
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="527*"/>
+            <ColumnDefinition Width="973*"/>
+        </Grid.ColumnDefinitions>
+        <muxc:TextBlock Text="IP:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="0" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
+        <muxc:TextBlock Text="User:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="2" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
+        <muxc:TextBlock Text="Password:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="3" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
+        <muxc:TextBlock Text="Port:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="1" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
+        
+        <TextBox x:Name="IP_In"  TextAlignment="Center" PlaceholderText="Enter your database IP!" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="0" Width="456" TextChanged="IP_In_TextChanged"/>
+        <TextBox x:Name="Port_In" TextAlignment="Center" PlaceholderText="Enter the port!" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="1" Width="456" TextChanged="Port_In_TextChanged"/>
+        <TextBox x:Name="User_In" TextAlignment="Center" PlaceholderText="Enter your database user!" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="2" Width="456" TextChanged="User_In_TextChanged"/>
+        <PasswordBox x:Name="Password_In" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" PlaceholderText="Enter your password!" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="3" Width="456" PasswordChanged="Password_In_PasswordChanged"/>
+        
+        <Button x:Name="ApplyButton" Content="Apply" VerticalAlignment="Top"  Grid.Column="1" Margin="214,30,0,0" Grid.Row="4" Click="ApplyButton_Click"/>
+        <Button x:Name="ConnectButton" Content="Connect" VerticalAlignment="Top"  Grid.Column="1" Margin="339,30,0,0" Grid.Row="4" Click="ConnectButton_Click"/>
+    </Grid>
+</Page>

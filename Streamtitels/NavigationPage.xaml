@@ -1,0 +1,19 @@
+﻿<Page
+    x:Class="Streamtitels.NavigationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Streamtitels"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:muxc="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    mc:Ignorable="d"
+    Background="#FF6441A5">
+
+    <Grid>
+        <muxc:NavigationView x:Name="NavBar" ItemInvoked="NavBar_Click">
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItem x:Name="Home_Page" Icon="Home" Content="Home" />
+            </muxc:NavigationView.MenuItems>
+            <Frame x:Name="contentFrame"/>
+        </muxc:NavigationView>
+    </Grid>
+</Page>
