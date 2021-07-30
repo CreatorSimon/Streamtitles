@@ -27,6 +27,7 @@ namespace Streamtitels
         public NavigationPage()
         {
             this.InitializeComponent();
+            this.contentFrame.Navigate(typeof(MainPage));
             _mainPage = new MainPage();
             _optionsPage = new OptionsPage();
         }
