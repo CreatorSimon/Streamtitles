@@ -1,7 +1,7 @@
 ﻿<Application
-    x:Class="Streamtitels.App"
+    x:Class="Streamtitles.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Streamtitels">
+    xmlns:local="using:Streamtitles">
 
 </Application>

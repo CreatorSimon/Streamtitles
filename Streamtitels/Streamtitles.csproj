@@ -7,8 +7,8 @@
     <ProjectGuid>{F4C0C7D5-FE2C-476D-BC2E-3ECC112E98AD}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Streamtitels</RootNamespace>
-    <AssemblyName>Streamtitels</AssemblyName>
+    <RootNamespace>Streamtitles</RootNamespace>
+    <AssemblyName>Streamtitles</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>

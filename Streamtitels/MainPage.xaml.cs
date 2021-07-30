@@ -28,7 +28,7 @@ using TwitchLib.Api.Services;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
-namespace Streamtitels
+namespace Streamtitles
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -67,11 +67,6 @@ namespace Streamtitels
 
 
             dataPackage = new DataPackage();
-        }
-
-        private double ConvertPixelsToDips(int v)
-        {
-            throw new NotImplementedException();
         }
 
         private void Monitor_OnStreamOnline(object sender, OnStreamOnlineArgs e)
