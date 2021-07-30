@@ -25,12 +25,8 @@ namespace Streamtitles
         private static MainPage _mainPage = new MainPage();
         public static MySqlConnection mysqlcon;
 
-        private static string _clientId = "gp762nuuoqcoxypju8c569th9wz7q5";
-        private static string _secret = "qkve74p00ruuhp6ojffpqmtou2ob5o";
-        private static string _token = "63yz4grwnuryz1f8se6l26lrhtvpdl";
         private static string _title = "Test";
-        private static readonly string userName = "DunkingBot";
-        private static readonly string channel = "dunkingsimon";
+        private static string _channel = "dunkingsimon";
         private static TwitchAPI api = new TwitchAPI();
 
         public static string _ip;
@@ -40,6 +36,35 @@ namespace Streamtitles
 
         private static BackgroundWorker background = new BackgroundWorker();
 
+        public static string Ip
+        {
+            get { return _ip; }
+            set { _ip = value; }
+        }
+
+        public static string Port
+        {
+            get { return _port; }
+            set { _port = value; }
+        }
+
+        public static string User
+        {
+            get { return _user; }
+            set { _user = value; }
+        }
+
+        public static string Password
+        {
+            get { return _password; }
+            set { _password = value; }
+        }
+
+        public static string Channel
+        {
+            get { return _channel; }
+            set { _channel = value; }
+        }
 
         public static void Generate_ConnectionString()
         {
@@ -57,7 +82,7 @@ namespace Streamtitles
             BackgroundWorker d = new BackgroundWorker();
             d.DoWork += async (a, s) =>
             {
-                var user = await api.Helix.Users.GetUsersAsync(logins: new List<string>() { channel });
+                var user = await api.Helix.Users.GetUsersAsync(logins: new List<string>() { _channel });
 
                 var t = new ModifyChannelInformationRequest();
                 t.Title = _title;

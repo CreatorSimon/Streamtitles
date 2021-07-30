@@ -54,6 +54,10 @@ namespace Streamtitles
             {
                 Token_In.PlaceholderText = SecretData.Token;
             }
+            if (Data.Channel != null)
+            {
+                Channel_In.PlaceholderText = Data.Channel;
+            }
         }
 
         private void IP_In_TextChanged(object sender, TextChangedEventArgs e)
@@ -89,6 +93,11 @@ namespace Streamtitles
         private void Token_In_TextChanged(object sender, RoutedEventArgs e)
         {
             SecretData.Token = Token_In.Text;
+        }
+
+        private void Channel_In_TextChanged(object sender, RoutedEventArgs e)
+        {
+            Data.Channel = Channel_In.Text;
         }
 
         private void ApplyButton_Click(object sender, RoutedEventArgs e)
