@@ -43,21 +43,15 @@ namespace Streamtitles
     {
         private MySqlCommand addToDatabase;
         private MySqlCommand readTitle;
-        private DataPackage dataPackage;
-        private TwitchAPI api;
-        private LiveStreamMonitorService monitor;
-        private HttpClientHandler client;
 
         public MainPage()
         {
             this.InitializeComponent();
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(500, 500));
-            dataPackage = new DataPackage();
         }
 
         private async void GenerateButton_Click(object sender, RoutedEventArgs e)
         {
-            Data.Change_Twitch_Title();
             if (Data.mysqlcon != null)
             {
                 Data.mysqlcon.Open();
@@ -96,16 +90,11 @@ namespace Streamtitles
         {
         }
 
-        private void CopyButton_Click(object sender, RoutedEventArgs e)
+        private void SetButton_Click(object sender, RoutedEventArgs e)
         {
-            dataPackage.RequestedOperation = DataPackageOperation.Copy;
-            dataPackage.SetText(StreamOut.Text);
-            Clipboard.SetContent(dataPackage);
+            Data.Change_Twitch_Title(StreamOut.Text);
         }
 
-        private void OptionsButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(OptionsPage));
-        }
+
     }
 }

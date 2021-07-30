@@ -42,6 +42,18 @@ namespace Streamtitles
             {
                 User_In.PlaceholderText = Data._user;
             }
+            if (SecretData.ClientID != null)
+            {
+                ClientID_In.PlaceholderText = SecretData.ClientID;
+            }
+            if (SecretData.Secret != null)
+            {
+                Secret_In.PlaceholderText = SecretData.Secret;
+            }
+            if (SecretData.Token != null)
+            {
+                Token_In.PlaceholderText = SecretData.Token;
+            }
         }
 
         private void IP_In_TextChanged(object sender, TextChangedEventArgs e)
@@ -62,6 +74,21 @@ namespace Streamtitles
         private void Port_In_TextChanged(object sender, RoutedEventArgs e)
         {
             Data._port = Port_In.Text;
+        }
+
+        private void ClientID_In_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SecretData.ClientID = ClientID_In.Text;
+        }
+
+        private void Secret_In_TextChanged(object sender, RoutedEventArgs e)
+        {
+            SecretData.Secret = Secret_In.Text;
+        }
+
+        private void Token_In_TextChanged(object sender, RoutedEventArgs e)
+        {
+            SecretData.Token = Token_In.Text;
         }
 
         private void ApplyButton_Click(object sender, RoutedEventArgs e)
