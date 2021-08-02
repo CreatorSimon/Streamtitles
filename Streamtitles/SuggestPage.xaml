@@ -1,0 +1,36 @@
+﻿<Page
+    x:Class="Streamtitles.SuggestPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Streamtitles"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:muxc="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    mc:Ignorable="d">
+    <Page.Background>
+        <ImageBrush ImageSource="/Assets/twitch.jpg" Stretch="Fill" Opacity="0.5"/>
+    </Page.Background>
+
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="250"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+
+        </Grid.ColumnDefinitions>
+
+        <muxc:TextBlock HorizontalAlignment="Center" Text="Save your title!" TextWrapping="Wrap" VerticalAlignment="Center" FontFamily="Arial Black" FontSize="50" FontWeight="Bold" />
+
+        <muxc:TextBox x:Name="Title" muxc:Grid.Column="0" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" muxc:Grid.Row="1" PlaceholderText="Enter your title!" TextWrapping="Wrap" muxc:Grid.ColumnSpan="2" Width="591"/>
+        <muxc:TextBox x:Name="Genre"  muxc:Grid.Column="0" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" muxc:Grid.Row="2" PlaceholderText="Enter the genre!" TextWrapping="Wrap" muxc:Grid.ColumnSpan="2" Width="591"/>
+        <muxc:TextBox x:Name="Category" muxc:Grid.Column="0" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" muxc:Grid.Row="3" PlaceholderText="Enter the category!" TextWrapping="Wrap" muxc:Grid.ColumnSpan="2" Width="591"/>
+
+        <muxc:Button x:Name="SaveButton" Content="Save" Margin="0,10,0,0" muxc:Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Arial Black" FontWeight="Bold" Click="SaveButton_Click"/>
+    </Grid>
+</Page>

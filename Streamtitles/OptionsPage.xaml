@@ -6,6 +6,193 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:muxc="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     mc:Ignorable="d" Background="#FF6441A5">
+    <Page.Resources>
+        <muxc:Style x:Key="PasswordBoxStyle1" TargetType="muxc:PasswordBox">
+            <muxc:Setter Property="Foreground" Value="{muxc:ThemeResource TextControlForeground}"/>
+            <muxc:Setter Property="Background" Value="{muxc:ThemeResource TextControlBackground}"/>
+            <muxc:Setter Property="SelectionHighlightColor" Value="{muxc:ThemeResource TextControlSelectionHighlightColor}"/>
+            <muxc:Setter Property="BorderBrush" Value="{muxc:ThemeResource TextControlBorderBrush}"/>
+            <muxc:Setter Property="BorderThickness" Value="{muxc:ThemeResource TextControlBorderThemeThickness}"/>
+            <muxc:Setter Property="FontFamily" Value="{muxc:ThemeResource ContentControlThemeFontFamily}"/>
+            <muxc:Setter Property="FontSize" Value="{muxc:ThemeResource ControlContentThemeFontSize}"/>
+            <muxc:Setter Property="muxc:ScrollViewer.HorizontalScrollMode" Value="Auto"/>
+            <muxc:Setter Property="muxc:ScrollViewer.VerticalScrollMode" Value="Auto"/>
+            <muxc:Setter Property="muxc:ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
+            <muxc:Setter Property="muxc:ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
+            <muxc:Setter Property="Padding" Value="{muxc:ThemeResource TextControlThemePadding}"/>
+            <muxc:Setter Property="ContextFlyout" Value="{muxc:StaticResource TextControlCommandBarContextFlyout}"/>
+            <muxc:Setter Property="SelectionFlyout" Value="{muxc:StaticResource TextControlCommandBarSelectionFlyout}"/>
+            <muxc:Setter Property="Template">
+                <muxc:Setter.Value>
+                    <muxc:ControlTemplate TargetType="muxc:PasswordBox">
+                        <muxc:Grid>
+                            <muxc:Grid.Resources>
+                                <muxc:Style x:Name="RevealButtonStyle" TargetType="muxc:ToggleButton">
+                                    <muxc:Setter Property="Template">
+                                        <muxc:Setter.Value>
+                                            <muxc:ControlTemplate TargetType="muxc:ToggleButton">
+                                                <muxc:Grid x:Name="ButtonLayoutGrid" Background="{muxc:ThemeResource TextControlButtonBackground}" BorderThickness="{muxc:TemplateBinding BorderThickness}" BorderBrush="{muxc:ThemeResource TextControlButtonBorderBrush}">
+                                                    <muxc:VisualStateManager.VisualStateGroups>
+                                                        <muxc:VisualStateGroup x:Name="CommonStates">
+                                                            <muxc:VisualState x:Name="Normal"/>
+                                                            <muxc:VisualState x:Name="Indeterminate"/>
+                                                            <muxc:VisualState x:Name="PointerOver">
+                                                                <muxc:Storyboard>
+                                                                    <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="ButtonLayoutGrid" muxc:Storyboard.TargetProperty="Background">
+                                                                        <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlButtonBackgroundPointerOver}"/>
+                                                                    </muxc:ObjectAnimationUsingKeyFrames>
+                                                                    <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="ButtonLayoutGrid" muxc:Storyboard.TargetProperty="BorderBrush">
+                                                                        <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlButtonBorderBrushPointerOver}"/>
+                                                                    </muxc:ObjectAnimationUsingKeyFrames>
+                                                                    <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="GlyphElement" muxc:Storyboard.TargetProperty="Foreground">
+                                                                        <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlButtonForegroundPointerOver}"/>
+                                                                    </muxc:ObjectAnimationUsingKeyFrames>
+                                                                </muxc:Storyboard>
+                                                            </muxc:VisualState>
+                                                            <muxc:VisualState x:Name="Pressed">
+                                                                <muxc:Storyboard>
+                                                                    <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="ButtonLayoutGrid" muxc:Storyboard.TargetProperty="Background">
+                                                                        <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlButtonBackgroundPressed}"/>
+                                                                    </muxc:ObjectAnimationUsingKeyFrames>
+                                                                    <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="ButtonLayoutGrid" muxc:Storyboard.TargetProperty="BorderBrush">
+                                                                        <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlButtonBorderBrushPressed}"/>
+                                                                    </muxc:ObjectAnimationUsingKeyFrames>
+                                                                    <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="GlyphElement" muxc:Storyboard.TargetProperty="Foreground">
+                                                                        <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlButtonForegroundPressed}"/>
+                                                                    </muxc:ObjectAnimationUsingKeyFrames>
+                                                                </muxc:Storyboard>
+                                                            </muxc:VisualState>
+                                                            <muxc:VisualState x:Name="CheckedPressed">
+                                                                <muxc:Storyboard>
+                                                                    <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="ButtonLayoutGrid" muxc:Storyboard.TargetProperty="Background">
+                                                                        <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlButtonBackgroundPressed}"/>
+                                                                    </muxc:ObjectAnimationUsingKeyFrames>
+                                                                    <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="ButtonLayoutGrid" muxc:Storyboard.TargetProperty="BorderBrush">
+                                                                        <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlButtonBorderBrushPressed}"/>
+                                                                    </muxc:ObjectAnimationUsingKeyFrames>
+                                                                    <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="GlyphElement" muxc:Storyboard.TargetProperty="Foreground">
+                                                                        <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlButtonForegroundPressed}"/>
+                                                                    </muxc:ObjectAnimationUsingKeyFrames>
+                                                                </muxc:Storyboard>
+                                                            </muxc:VisualState>
+                                                            <muxc:VisualState x:Name="IndeterminatePressed">
+                                                                <muxc:Storyboard>
+                                                                    <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="ButtonLayoutGrid" muxc:Storyboard.TargetProperty="Background">
+                                                                        <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlButtonBackgroundPressed}"/>
+                                                                    </muxc:ObjectAnimationUsingKeyFrames>
+                                                                    <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="ButtonLayoutGrid" muxc:Storyboard.TargetProperty="BorderBrush">
+                                                                        <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlButtonBorderBrushPressed}"/>
+                                                                    </muxc:ObjectAnimationUsingKeyFrames>
+                                                                    <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="GlyphElement" muxc:Storyboard.TargetProperty="Foreground">
+                                                                        <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlButtonForegroundPressed}"/>
+                                                                    </muxc:ObjectAnimationUsingKeyFrames>
+                                                                </muxc:Storyboard>
+                                                            </muxc:VisualState>
+                                                            <muxc:VisualState x:Name="Disabled">
+                                                                <muxc:Storyboard>
+                                                                    <muxc:DoubleAnimation Duration="0" muxc:Storyboard.TargetName="ButtonLayoutGrid" muxc:Storyboard.TargetProperty="Opacity" To="0"/>
+                                                                </muxc:Storyboard>
+                                                            </muxc:VisualState>
+                                                        </muxc:VisualStateGroup>
+                                                    </muxc:VisualStateManager.VisualStateGroups>
+                                                    <muxc:TextBlock x:Name="GlyphElement" muxc:AutomationProperties.AccessibilityView="Raw" FontStyle="Normal" FontFamily="{muxc:ThemeResource SymbolThemeFontFamily}" Foreground="{muxc:ThemeResource TextControlButtonForeground}" FontSize="12" HorizontalAlignment="Center" Text="&#xE052;" VerticalAlignment="Center"/>
+                                                </muxc:Grid>
+                                            </muxc:ControlTemplate>
+                                        </muxc:Setter.Value>
+                                    </muxc:Setter>
+                                </muxc:Style>
+                            </muxc:Grid.Resources>
+                            <muxc:Grid.ColumnDefinitions>
+                                <muxc:ColumnDefinition Width="*"/>
+                                <muxc:ColumnDefinition Width="Auto"/>
+                            </muxc:Grid.ColumnDefinitions>
+                            <muxc:Grid.RowDefinitions>
+                                <muxc:RowDefinition Height="Auto"/>
+                                <muxc:RowDefinition Height="*"/>
+                                <muxc:RowDefinition Height="Auto"/>
+                            </muxc:Grid.RowDefinitions>
+                            <muxc:VisualStateManager.VisualStateGroups>
+                                <muxc:VisualStateGroup x:Name="CommonStates">
+                                    <muxc:VisualState x:Name="Disabled">
+                                        <muxc:Storyboard>
+                                            <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="HeaderContentPresenter" muxc:Storyboard.TargetProperty="Foreground">
+                                                <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlHeaderForegroundDisabled}"/>
+                                            </muxc:ObjectAnimationUsingKeyFrames>
+                                            <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="BorderElement" muxc:Storyboard.TargetProperty="Background">
+                                                <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlBackgroundDisabled}"/>
+                                            </muxc:ObjectAnimationUsingKeyFrames>
+                                            <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="BorderElement" muxc:Storyboard.TargetProperty="BorderBrush">
+                                                <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlBorderBrushDisabled}"/>
+                                            </muxc:ObjectAnimationUsingKeyFrames>
+                                            <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="ContentElement" muxc:Storyboard.TargetProperty="Foreground">
+                                                <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlForegroundDisabled}"/>
+                                            </muxc:ObjectAnimationUsingKeyFrames>
+                                            <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="PlaceholderTextContentPresenter" muxc:Storyboard.TargetProperty="Foreground">
+                                                <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlPlaceholderForegroundDisabled}"/>
+                                            </muxc:ObjectAnimationUsingKeyFrames>
+                                        </muxc:Storyboard>
+                                    </muxc:VisualState>
+                                    <muxc:VisualState x:Name="Normal"/>
+                                    <muxc:VisualState x:Name="PointerOver">
+                                        <muxc:Storyboard>
+                                            <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="BorderElement" muxc:Storyboard.TargetProperty="BorderBrush">
+                                                <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlBorderBrushPointerOver}"/>
+                                            </muxc:ObjectAnimationUsingKeyFrames>
+                                            <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="BorderElement" muxc:Storyboard.TargetProperty="Background">
+                                                <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlBackgroundPointerOver}"/>
+                                            </muxc:ObjectAnimationUsingKeyFrames>
+                                            <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="PlaceholderTextContentPresenter" muxc:Storyboard.TargetProperty="Foreground">
+                                                <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlPlaceholderForegroundPointerOver}"/>
+                                            </muxc:ObjectAnimationUsingKeyFrames>
+                                            <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="ContentElement" muxc:Storyboard.TargetProperty="Foreground">
+                                                <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlForegroundPointerOver}"/>
+                                            </muxc:ObjectAnimationUsingKeyFrames>
+                                        </muxc:Storyboard>
+                                    </muxc:VisualState>
+                                    <muxc:VisualState x:Name="Focused">
+                                        <muxc:Storyboard>
+                                            <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="PlaceholderTextContentPresenter" muxc:Storyboard.TargetProperty="Foreground">
+                                                <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlPlaceholderForegroundFocused}"/>
+                                            </muxc:ObjectAnimationUsingKeyFrames>
+                                            <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="BorderElement" muxc:Storyboard.TargetProperty="Background">
+                                                <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlBackgroundFocused}"/>
+                                            </muxc:ObjectAnimationUsingKeyFrames>
+                                            <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="BorderElement" muxc:Storyboard.TargetProperty="BorderBrush">
+                                                <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlBorderBrushFocused}"/>
+                                            </muxc:ObjectAnimationUsingKeyFrames>
+                                            <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="ContentElement" muxc:Storyboard.TargetProperty="Foreground">
+                                                <muxc:DiscreteObjectKeyFrame KeyTime="0" Value="{muxc:ThemeResource TextControlForegroundFocused}"/>
+                                            </muxc:ObjectAnimationUsingKeyFrames>
+                                        </muxc:Storyboard>
+                                    </muxc:VisualState>
+                                </muxc:VisualStateGroup>
+                                <muxc:VisualStateGroup x:Name="ButtonStates">
+                                    <muxc:VisualState x:Name="ButtonVisible">
+                                        <muxc:Storyboard>
+                                            <muxc:ObjectAnimationUsingKeyFrames muxc:Storyboard.TargetName="RevealButton" muxc:Storyboard.TargetProperty="Visibility">
+                                                <muxc:DiscreteObjectKeyFrame KeyTime="0">
+                                                    <muxc:DiscreteObjectKeyFrame.Value>
+                                                        <muxc:Visibility>Visible</muxc:Visibility>
+                                                    </muxc:DiscreteObjectKeyFrame.Value>
+                                                </muxc:DiscreteObjectKeyFrame>
+                                            </muxc:ObjectAnimationUsingKeyFrames>
+                                        </muxc:Storyboard>
+                                    </muxc:VisualState>
+                                    <muxc:VisualState x:Name="ButtonCollapsed"/>
+                                </muxc:VisualStateGroup>
+                            </muxc:VisualStateManager.VisualStateGroups>
+                            <muxc:ContentPresenter x:Name="HeaderContentPresenter" ContentTemplate="{muxc:TemplateBinding HeaderTemplate}" Content="{muxc:TemplateBinding Header}" muxc:Grid.ColumnSpan="2" muxc:Grid.Column="0" FontWeight="Normal" Foreground="{muxc:ThemeResource TextControlHeaderForeground}" Margin="{muxc:ThemeResource PasswordBoxTopHeaderMargin}" muxc:Grid.Row="0" TextWrapping="Wrap" VerticalAlignment="Top" Visibility="Collapsed" x:DeferLoadStrategy="Lazy"/>
+                            <muxc:Border x:Name="BorderElement" Background="{muxc:TemplateBinding Background}" BorderThickness="{muxc:TemplateBinding BorderThickness}" BorderBrush="{muxc:TemplateBinding BorderBrush}" CornerRadius="{muxc:TemplateBinding CornerRadius}" muxc:Grid.ColumnSpan="2" muxc:Grid.Column="0" MinHeight="{muxc:ThemeResource TextControlThemeMinHeight}" MinWidth="{muxc:ThemeResource TextControlThemeMinWidth}" muxc:Grid.RowSpan="1" muxc:Grid.Row="1"/>
+                            <muxc:ScrollViewer x:Name="ContentElement" Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" muxc:AutomationProperties.AccessibilityView="Raw" muxc:Grid.Column="0" HorizontalScrollBarVisibility="{muxc:TemplateBinding muxc:ScrollViewer.HorizontalScrollBarVisibility}" HorizontalScrollMode="{muxc:TemplateBinding muxc:ScrollViewer.HorizontalScrollMode}" IsHorizontalRailEnabled="{muxc:TemplateBinding muxc:ScrollViewer.IsHorizontalRailEnabled}" IsTabStop="False" IsVerticalRailEnabled="{muxc:TemplateBinding muxc:ScrollViewer.IsVerticalRailEnabled}" Padding="{muxc:TemplateBinding Padding}" muxc:Grid.Row="1" VerticalScrollMode="{muxc:TemplateBinding muxc:ScrollViewer.VerticalScrollMode}" VerticalScrollBarVisibility="{muxc:TemplateBinding muxc:ScrollViewer.VerticalScrollBarVisibility}" ZoomMode="Disabled"/>
+                            <muxc:TextBlock x:Name="PlaceholderTextContentPresenter" Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" muxc:Grid.ColumnSpan="2" muxc:Grid.Column="0" Foreground="{muxc:ThemeResource TextControlPlaceholderForeground}" IsHitTestVisible="False" Padding="{muxc:TemplateBinding Padding}" muxc:Grid.Row="1" Text="{muxc:TemplateBinding PlaceholderText}"/>
+                            <muxc:ToggleButton x:Name="RevealButton" BorderThickness="{muxc:TemplateBinding BorderThickness}" muxc:Grid.Column="1" FontSize="{muxc:TemplateBinding FontSize}" IsTabStop="False" MinWidth="34" Margin="{muxc:ThemeResource HelperButtonThemePadding}" muxc:Grid.Row="1" Style="{muxc:StaticResource RevealButtonStyle}" VerticalAlignment="Stretch" Visibility="Collapsed"/>
+                            <muxc:ContentPresenter x:Name="DescriptionPresenter" muxc:AutomationProperties.AccessibilityView="Raw" Content="{muxc:TemplateBinding Description}" muxc:Grid.ColumnSpan="2" muxc:Grid.Column="0" Foreground="{muxc:ThemeResource SystemControlDescriptionTextForegroundBrush}" muxc:Grid.Row="2" x:Load="False"/>
+                        </muxc:Grid>
+                    </muxc:ControlTemplate>
+                </muxc:Setter.Value>
+            </muxc:Setter>
+        </muxc:Style>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -35,7 +222,7 @@
         <TextBox x:Name="IP_In"  TextAlignment="Center" PlaceholderText="Enter your database IP!" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="0" Width="456" TextChanged="IP_In_TextChanged"/>
         <TextBox x:Name="Port_In" TextAlignment="Center" PlaceholderText="Enter the port!" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="1" Width="456" TextChanged="Port_In_TextChanged"/>
         <TextBox x:Name="User_In" TextAlignment="Center" PlaceholderText="Enter your database user!" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="2" Width="456" TextChanged="User_In_TextChanged"/>
-        <PasswordBox x:Name="Password_In" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" PlaceholderText="Enter your password!" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="3" Width="456" PasswordChanged="Password_In_PasswordChanged"/>
+        <PasswordBox Style="{StaticResource PasswordBoxStyle1}" x:Name="Password_In" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" PlaceholderText="Enter your password!" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Grid.Row="3" Width="456" PasswordChanged="Password_In_PasswordChanged"/>
 
         <TextBox x:Name="ClientID_In" TextAlignment="Center" PlaceholderText="Enter your Twitch client ID" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="4" Width="456" TextChanged="ClientID_In_TextChanged"/>
         <TextBox x:Name="Secret_In" TextAlignment="Center" PlaceholderText="Enter your Twitch secret" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="5" Width="456" TextChanged="Secret_In_TextChanged"/>

@@ -24,6 +24,9 @@ namespace Streamtitles
     {
         private MainPage _mainPage;
         private OptionsPage _optionsPage;
+        private SuggestPage _suggestPage;
+        private DataGridPage _dataPage;
+
         public NavigationPage()
         {
             this.InitializeComponent();
@@ -31,6 +34,9 @@ namespace Streamtitles
             NavBar.IsPaneOpen = false;
             _mainPage = new MainPage();
             _optionsPage = new OptionsPage();
+            _suggestPage = new SuggestPage();
+            _dataPage = new DataGridPage();
+            Data.Load_Settings();
         }
 
         private void NavBar_Click(NavigationView sender, NavigationViewItemInvokedEventArgs args)
@@ -42,6 +48,14 @@ namespace Streamtitles
             if(args.InvokedItemContainer == Home_Page)
             {
                 this.contentFrame.Navigate(typeof(MainPage));
+            }
+            if (args.InvokedItemContainer == Suggest_Page)
+            {
+                this.contentFrame.Navigate(typeof(SuggestPage));
+            }
+            if (args.InvokedItemContainer == Data_Page)
+            {
+                this.contentFrame.Navigate(typeof(DataGridPage));
             }
         }
     }

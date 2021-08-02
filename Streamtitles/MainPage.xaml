@@ -21,12 +21,10 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="51*"/>
             <ColumnDefinition Width="49*"/>
-            <ColumnDefinition Width="49*"/>
         </Grid.ColumnDefinitions>
         <TextBlock Text="Your random Streamtitle generator!" FontSize="48" FontFamily="Arial Black" FontWeight="Bold" VerticalAlignment="Center" Height="58" Width="807" Grid.ColumnSpan="3" HorizontalAlignment="Center" Grid.Row="1"/>
         <TextBox  x:Name="StreamOut" TextAlignment="Center" Height="41" Text="" TextWrapping="Wrap" VerticalAlignment="Center" FontSize="24" FontFamily="Arial Black" FontWeight="Bold" TextChanged="StreamOut_TextChanged" Margin="347,0,347,0" Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Stretch"/>
         <Button  x:Name="GenerateButton" Content="Generate" FontFamily="Arial Black" FontWeight="Bold" FontSize="36" Click="GenerateButton_Click" Grid.Row="3" Grid.Column="0" Height="57" Width="205" HorizontalAlignment="Center"/>
-        <Button  x:Name="SuggestButton" Content="Suggest" FontFamily="Arial Black" FontWeight="Bold" FontSize="36" Click="SuggestButton_Click" Grid.Row="3" Height="57" Width="201" RenderTransformOrigin="0.457,0.521" Grid.Column="2" HorizontalAlignment="Center"/>
         <Button x:Name="Set_Button" Content="Set Title" Grid.Row="3" Height="58" Click="SetButton_Click" FontFamily="Arial Black" FontSize="36" FontWeight="Bold" Width="205" Grid.Column="1" HorizontalAlignment="Center"/>
     </Grid>
 

@@ -1,21 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -30,29 +17,18 @@ namespace Streamtitles
         public OptionsPage()
         {
             this.InitializeComponent();
-            if(Data._ip != null)
+            Data.Load_Settings();
+            if(Data.Ip != null)
             {
                 IP_In.PlaceholderText = Data._ip;
             }
-            if (Data._port != null)
+            if (Data.Port != null)
             {
                 Port_In.PlaceholderText = Data._port;
             }
-            if (Data._user != null)
+            if (Data.User != null)
             {
                 User_In.PlaceholderText = Data._user;
-            }
-            if (SecretData.ClientID != null)
-            {
-                ClientID_In.PlaceholderText = SecretData.ClientID;
-            }
-            if (SecretData.Secret != null)
-            {
-                Secret_In.PlaceholderText = SecretData.Secret;
-            }
-            if (SecretData.Token != null)
-            {
-                Token_In.PlaceholderText = SecretData.Token;
             }
             if (Data.Channel != null)
             {
@@ -82,17 +58,17 @@ namespace Streamtitles
 
         private void ClientID_In_TextChanged(object sender, TextChangedEventArgs e)
         {
-            SecretData.ClientID = ClientID_In.Text;
+            Data.ClientID = ClientID_In.Text;
         }
 
         private void Secret_In_TextChanged(object sender, RoutedEventArgs e)
         {
-            SecretData.Secret = Secret_In.Text;
+            Data.Secret = Secret_In.Text;
         }
 
         private void Token_In_TextChanged(object sender, RoutedEventArgs e)
         {
-            SecretData.Token = Token_In.Text;
+            Data.Token = Token_In.Text;
         }
 
         private void Channel_In_TextChanged(object sender, RoutedEventArgs e)
@@ -103,6 +79,8 @@ namespace Streamtitles
         private void ApplyButton_Click(object sender, RoutedEventArgs e)
         {
             Data.Generate_ConnectionString();
+            Data.Save_Settings();
+
         }
         private void ConnectButton_Click(object sender, RoutedEventArgs e)
         {
