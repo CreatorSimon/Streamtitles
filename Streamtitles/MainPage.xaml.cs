@@ -5,6 +5,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using MySql.Data.MySqlClient;
 using System.Data.Common;
+using System.Diagnostics;
+using System.Collections.Generic;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -15,32 +17,40 @@ namespace Streamtitles
     /// </summary>
     /// 
 
-
-
-
     public sealed partial class MainPage : Page
     {
-        private MySqlCommand readTitle;
+        private MySqlCommand _readTitle;
+        private MySqlCommand _getAllCategories;
+        private string _currentGame;
 
         public MainPage()
         {
             this.InitializeComponent();
 
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(500, 500));
-
-            //CheckConnection();
+            Data.Load_Settings();
+            Data.Generate_ConnectionString();
+            CheckConnection();
+            //Data.GetAllGames();
+            GetAllCategories();
+            if (CategoryChangeBox.SelectedIndex == -1)
+            {
+                CategoryChangeBox.SelectedIndex = 0;
+            }
         }
 
         private async void GenerateButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Data.mysqlcon != null)
+            if (Data.Connect_sql())
             {
                 Data.mysqlcon.Open();
-                readTitle = new MySqlCommand("SELECT title FROM titles ORDER BY RAND() LIMIT 1", Data.mysqlcon);
-                using (DbDataReader res = await readTitle.ExecuteReaderAsync())
+                _readTitle = new MySqlCommand("SELECT titles.title, categories.gameid FROM titles, categories, ct_intersect WHERE(titles.idtitle = ct_intersect.idtitle and @Category=categories.name and ct_intersect.gameid = categories.gameid) ORDER BY RAND() LIMIT 1;", Data.mysqlcon);
+                _readTitle.Parameters.AddWithValue("@Category", CategoryChangeBox.SelectedItem);
+                using (DbDataReader res = await _readTitle.ExecuteReaderAsync())
                 {
                     await res.ReadAsync();
                     StreamOut.Text = res.GetString(0);
+                    _currentGame = res.GetString(1);
                 }
                 Data.mysqlcon.Close();
             }
@@ -50,17 +60,43 @@ namespace Streamtitles
             }
         }
 
+        private async void GetAllCategories()
+        {
+            _getAllCategories = new MySqlCommand("SELECT name FROM categories, ct_intersect WHERE(ct_intersect.gameid = categories.gameid) ORDER BY name ASC;", Data.mysqlcon);
+            Data.mysqlcon.Open();
+            using (DbDataReader res = await _getAllCategories.ExecuteReaderAsync())
+            {
+                while (await res.ReadAsync())
+                {
+                    Data.Categories.Add(res.GetString(0));
+                }
+            }
+            Data.mysqlcon.Close();
+
+            foreach (string item in Data.Categories)
+            {
+                if (!item.Equals(""))
+                {
+                    if (!CategoryChangeBox.Items.Contains(item))
+                    {
+                        CategoryChangeBox.Items.Add(item);
+                    }
+                }
+            }
+        }
+
         private void CheckConnection()
         {
             var twCon = Data.CheckTwitchConnection();
-            if(Data.mysqlcon != null && twCon)
+            var DataCon = Data.Connect_sql();
+            if(DataCon && twCon)
             {
                 StreamOut.PlaceholderText = "Database and Twitch connection are working!" ;
             }
-            else if(Data.mysqlcon != null && !twCon)
+            else if(DataCon && !twCon)
             {
                 StreamOut.PlaceholderText = "Twitch connection not working!";
-            }else if(Data.mysqlcon == null && twCon)
+            }else if(!DataCon && twCon)
             {
                 StreamOut.PlaceholderText = "Database connection not working!";
             }
@@ -76,7 +112,7 @@ namespace Streamtitles
 
         private void SetButton_Click(object sender, RoutedEventArgs e)
         {
-            Data.Change_Twitch_Title(StreamOut.Text);
+            Data.ChangeTwitchTitleAndCategory(StreamOut.Text, _currentGame);
         }
 
 

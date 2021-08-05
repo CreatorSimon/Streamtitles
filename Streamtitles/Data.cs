@@ -2,95 +2,67 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using TwitchLib.Api;
 using TwitchLib.Api.Core.Enums;
 using TwitchLib.Api.Helix.Models.Channels.ModifyChannelInformation;
+using TwitchLib.Api.Helix.Models.Games;
 using Windows.Storage;
 
 namespace Streamtitles
 {
+
     class Data
     {
         private static string _conStr;
-        private static MainPage _mainPage = new MainPage();
         public static MySqlConnection mysqlcon;
 
-        private static string _title;
-        private static string _channel;
-        private static TwitchAPI api = new TwitchAPI();
+        private static TwitchAPI api;
 
-        public static string _ip;
-        public static string _port;
-        public static string _user;
-        public static string _password;
-
-        public static string _clientid;
-        public static string _secret;
-        public static string _token;
-
-        private static ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-
-        private static BackgroundWorker background = new BackgroundWorker();
+        private static ApplicationDataContainer localSettings;
 
         public static string Ip
-        {
-            get { return _ip; }
-            set { _ip = value; }
-        }
-
+        { get; set; }
         public static string Port
-        {
-            get { return _port; }
-            set { _port = value; }
-        }
-
+        { get; set; }
         public static string User
-        {
-            get { return _user; }
-            set { _user = value; }
-        }
-
+        { get; set; }
         public static string Password
-        {
-            get { return _password; }
-            set { _password = value; }
-        }
-
-        public static string Channel
-        {
-            get { return _channel; }
-            set { _channel = value; }
-        }
-
+        { get; set; }
         public static string ClientID
-        {
-            get { return _clientid; }
-            set { _clientid = value; }
-        }
-
+        { get; set; }
         public static string Secret
-        {
-            get { return _secret; }
-            set { _secret = value; }
-        }
-
+        { get; set; }
         public static string Token
-        {
-            get { return _token; }
-            set { _token = value; }
-        }
+        { get; set; }
+        public static string Title
+        { get; set; }
+        public static string Game
+        { get; set; }
+        public static string Channel
+        { get; set; }
+        public static List<string> Categories
+        { get; private set; }
       
 
         public object TwitchApiAddress { get; private set; }
+
+        static Data()
+        {
+            localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            api = new TwitchAPI();
+            Categories = new List<string>();
+        }
 
         public static void Generate_ConnectionString()
         {
             _conStr = $"server = {Ip}; port = {Port}; user = {User}; pwd = {Password}; database = streamtitles;";
         }
 
-        public static void Change_Twitch_Title(string title)
+        public static void ChangeTwitchTitleAndCategory(string title, string category)
         {
-            _title = title;
+            Title = title;
+            Game = category;
             api.Helix.Settings.ClientId = ClientID;
             api.Helix.Settings.Secret = Secret;
             api.Helix.Settings.AccessToken = Token;
@@ -102,16 +74,15 @@ namespace Streamtitles
                 var user = await api.Helix.Users.GetUsersAsync(logins: new List<string>() { Channel });
 
                 var t = new ModifyChannelInformationRequest();
-                t.Title = _title;
+                t.Title = Title;
+                t.GameId = Game;
                 await api.Helix.Channels.ModifyChannelInformationAsync(user.Users[0].Id, t);
-                var subscription =
-                    await api.Helix.Channels.GetChannelInformationAsync(user.Users[0].Id);
             };
 
             d.RunWorkerAsync();
         }
 
-        public static Boolean CheckTwitchConnection()
+        public static bool CheckTwitchConnection()
         {
             try
             {
@@ -136,6 +107,32 @@ namespace Streamtitles
                 return false;
             }
             return true;
+        }
+
+        public static void GetAllGames()
+        {
+            BackgroundWorker d = new BackgroundWorker();
+            d.DoWork += async (a, s) =>
+            {
+                var subscription =
+                    await api.Helix.Games.GetTopGamesAsync(first: 100);
+                Debug.WriteLine(subscription.Data[0].Id);
+
+                string[] values = new string[100];
+                string result = "INSERT IGNORE INTO categories (gameid, name) VALUES ";
+                for (int i = 0; i < 100; i++)
+                {
+                    values[i] = "(" + subscription.Data[i].Id + ", '" + subscription.Data[i].Name.Replace("'", "") + "')";
+                }
+                MySqlCommand fillCategories = new MySqlCommand(result + string.Join(", ", values) + ";", mysqlcon);
+                Debug.WriteLine(result + string.Join(", ", values) + ";");
+                mysqlcon.Open();
+                fillCategories.Prepare();
+                fillCategories.ExecuteNonQuery();
+                mysqlcon.Close();
+            };
+
+            d.RunWorkerAsync();
         }
 
         public static Boolean Connect_sql()

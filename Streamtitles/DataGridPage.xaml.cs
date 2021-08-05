@@ -30,6 +30,7 @@ namespace Streamtitles
     {
         public int IDTitle { get; set; }
         public string Title { get; set; }
+        
         public string Genre { get; set; }
         public string Category { get; set; }
 
@@ -57,10 +58,10 @@ namespace Streamtitles
             if (Data.mysqlcon != null)
             {
                 Data.mysqlcon.Open();
-                _GetTableTitle = new MySqlCommand("SELECT titles.idtitle, titles.title, genres.genre, categories.category FROM titles, genres, categories WHERE(titles.idtitle = genres.idtitle and titles.idtitle = categories.idtitle);", Data.mysqlcon);
+                _GetTableTitle = new MySqlCommand("SELECT titles.idtitle, titles.title , GROUP_CONCAT(DISTINCT genre SEPARATOR ', ') as genre, GROUP_CONCAT(DISTINCT name SEPARATOR ', ') as category FROM titles, genres, categories, ct_intersect WHERE(titles.idtitle = genres.idtitle and titles.idtitle = ct_intersect.idtitle and ct_intersect.gameid = categories.gameid) GROUP BY titles.idtitle;", Data.mysqlcon);
                 using (DbDataReader res = await _GetTableTitle.ExecuteReaderAsync())
                 {
-                    while(await res.ReadAsync())
+                    while (await res.ReadAsync())
                     {
 
                         var entry = new DatabaseListEntry();
@@ -79,7 +80,7 @@ namespace Streamtitles
 
             }
 
-    }
+        }
 
         private void sortCategory_Click(object sender, RoutedEventArgs e)
         {

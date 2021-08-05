@@ -65,7 +65,6 @@
         HorizontalScrollBarVisibility="Visible"
         VerticalScrollBarVisibility="Visible"
         AlternatingRowBackground="Transparent"
-        AlternatingRowForeground="Gray"
         AreRowDetailsFrozen="False"
         AreRowGroupHeadersFrozen="False"
         AutoGenerateColumns="False"

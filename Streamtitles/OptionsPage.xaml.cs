@@ -20,15 +20,15 @@ namespace Streamtitles
             Data.Load_Settings();
             if(Data.Ip != null)
             {
-                IP_In.PlaceholderText = Data._ip;
+                IP_In.PlaceholderText = Data.Ip;
             }
             if (Data.Port != null)
             {
-                Port_In.PlaceholderText = Data._port;
+                Port_In.PlaceholderText = Data.Port;
             }
             if (Data.User != null)
             {
-                User_In.PlaceholderText = Data._user;
+                User_In.PlaceholderText = Data.User;
             }
             if (Data.Channel != null)
             {
@@ -38,22 +38,22 @@ namespace Streamtitles
 
         private void IP_In_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Data._ip = IP_In.Text;
+            Data.Ip = IP_In.Text;
         }
 
         private void User_In_TextChanged(object sender, TextChangedEventArgs e)
         {
-            Data._user = User_In.Text;
+            Data.User = User_In.Text;
         }
 
         private void Password_In_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            Data._password = Password_In.Password;
+            Data.Password = Password_In.Password;
         }
 
         private void Port_In_TextChanged(object sender, RoutedEventArgs e)
         {
-            Data._port = Port_In.Text;
+            Data.Port = Port_In.Text;
         }
 
         private void ClientID_In_TextChanged(object sender, TextChangedEventArgs e)
@@ -78,13 +78,13 @@ namespace Streamtitles
 
         private void ApplyButton_Click(object sender, RoutedEventArgs e)
         {
-            Data.Generate_ConnectionString();
             Data.Save_Settings();
 
         }
         private void ConnectButton_Click(object sender, RoutedEventArgs e)
         {
-            if(Data.Connect_sql())
+            Data.Generate_ConnectionString();
+            if (Data.Connect_sql())
             {
                 ConnectButton.IsEnabled = false;
 
