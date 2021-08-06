@@ -52,7 +52,7 @@ namespace Streamtitles
             if (Data.mysqlcon != null)
             {
                 Data.mysqlcon.Open();
-                addToDatabaseTitle = new MySqlCommand("REPLACE INTO titles (title) VALUES (@title);", Data.mysqlcon);
+                addToDatabaseTitle = new MySqlCommand("INSERT IGNORE INTO titles (title) VALUES (@title);", Data.mysqlcon);
                 addToDatabaseTitle.Parameters.AddWithValue("@title", Title.Text);
                 await addToDatabaseTitle.ExecuteNonQueryAsync();
 
@@ -67,7 +67,7 @@ namespace Streamtitles
 
                 string[] subs1 = Genre.Text.Split(',');
                 string[] formed1 = new string[subs1.Length];
-                string result1 = "INSERT INTO genres (idtitle, genre) VALUES ";
+                string result1 = "INSERT IGNORE INTO genres (idtitle, genre) VALUES ";
 
                 for(int i = 0; i < subs1.Length; i++)
                 {
@@ -90,7 +90,7 @@ namespace Streamtitles
                     j++;
                 }
                 string[] formed = new string[subs.Length];
-                string result = "INSERT INTO ct_intersect (idtitle, gameid) VALUES ";
+                string result = "INSERT IGNORE INTO ct_intersect (idtitle, gameid) VALUES ";
 
                 for (int i = 0; i < subs.Length; i++)
                 {

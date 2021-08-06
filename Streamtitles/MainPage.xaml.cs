@@ -23,15 +23,18 @@ namespace Streamtitles
         private MySqlCommand _getAllCategories;
         private string _currentGame;
 
+        private List<string> Categories { get; set; }
+
         public MainPage()
         {
             this.InitializeComponent();
+
+            Categories = new List<string>();
 
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(500, 500));
             Data.Load_Settings();
             Data.Generate_ConnectionString();
             CheckConnection();
-            //Data.GetAllGames();
             GetAllCategories();
             if (CategoryChangeBox.SelectedIndex == -1)
             {
@@ -62,27 +65,17 @@ namespace Streamtitles
 
         private async void GetAllCategories()
         {
+            Categories.Clear();
             _getAllCategories = new MySqlCommand("SELECT name FROM categories, ct_intersect WHERE(ct_intersect.gameid = categories.gameid) ORDER BY name ASC;", Data.mysqlcon);
             Data.mysqlcon.Open();
             using (DbDataReader res = await _getAllCategories.ExecuteReaderAsync())
             {
                 while (await res.ReadAsync())
                 {
-                    Data.Categories.Add(res.GetString(0));
+                    Categories.Add(res.GetString(0));
                 }
             }
             Data.mysqlcon.Close();
-
-            foreach (string item in Data.Categories)
-            {
-                if (!item.Equals(""))
-                {
-                    if (!CategoryChangeBox.Items.Contains(item))
-                    {
-                        CategoryChangeBox.Items.Add(item);
-                    }
-                }
-            }
         }
 
         private void CheckConnection()

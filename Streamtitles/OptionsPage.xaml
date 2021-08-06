@@ -193,46 +193,48 @@
             </muxc:Setter>
         </muxc:Style>
     </Page.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="100" />
-            <RowDefinition Height="100" />
-            <RowDefinition Height="100" />
-            <RowDefinition Height="100" />
-            <RowDefinition Height="100" />
-            <RowDefinition Height="100" />
-            <RowDefinition Height="100" />
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="100" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="100" />
 
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="527*"/>
-            <ColumnDefinition Width="973*"/>
-        </Grid.ColumnDefinitions>
-        <muxc:TextBlock Text="IP:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="0" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
-        <muxc:TextBlock Text="User:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="2" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
-        <muxc:TextBlock Text="Password:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="3" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
-        <muxc:TextBlock Text="Port:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="1" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
-        <muxc:TextBlock Text="ClientID:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="4" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
-        <muxc:TextBlock Text="Secret:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="5" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
-        <muxc:TextBlock Text="Token:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="6" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
-        <muxc:TextBlock Text="Channel:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="7" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="527*"/>
+                <ColumnDefinition Width="973*"/>
+            </Grid.ColumnDefinitions>
+            <muxc:TextBlock Text="IP:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="0" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
+            <muxc:TextBlock Text="User:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="2" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
+            <muxc:TextBlock Text="Password:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="3" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
+            <muxc:TextBlock Text="Port:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="1" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
+            <muxc:TextBlock Text="ClientID:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="4" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
+            <muxc:TextBlock Text="Secret:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="5" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
+            <muxc:TextBlock Text="Token:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="6" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
+            <muxc:TextBlock Text="Channel:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="7" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
 
-        <TextBox x:Name="IP_In"  TextAlignment="Center" PlaceholderText="Enter your database IP!" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="0" Width="456" TextChanged="IP_In_TextChanged"/>
-        <TextBox x:Name="Port_In" TextAlignment="Center" PlaceholderText="Enter the port!" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="1" Width="456" TextChanged="Port_In_TextChanged"/>
-        <TextBox x:Name="User_In" TextAlignment="Center" PlaceholderText="Enter your database user!" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="2" Width="456" TextChanged="User_In_TextChanged"/>
-        <PasswordBox Style="{StaticResource PasswordBoxStyle1}" x:Name="Password_In" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" PlaceholderText="Enter your password!" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Grid.Row="3" Width="456" PasswordChanged="Password_In_PasswordChanged"/>
+            <TextBox x:Name="IP_In"  TextAlignment="Center" PlaceholderText="Enter your database IP!" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="0" Width="456" TextChanged="IP_In_TextChanged"/>
+            <TextBox x:Name="Port_In" TextAlignment="Center" PlaceholderText="Enter the port!" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="1" Width="456" TextChanged="Port_In_TextChanged"/>
+            <TextBox x:Name="User_In" TextAlignment="Center" PlaceholderText="Enter your database user!" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="2" Width="456" TextChanged="User_In_TextChanged"/>
+            <PasswordBox Style="{StaticResource PasswordBoxStyle1}" x:Name="Password_In" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" PlaceholderText="Enter your password!" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Grid.Row="3" Width="456" PasswordChanged="Password_In_PasswordChanged"/>
 
-        <TextBox x:Name="ClientID_In" TextAlignment="Center" PlaceholderText="Enter your Twitch client ID" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="4" Width="456" TextChanged="ClientID_In_TextChanged"/>
-        <TextBox x:Name="Secret_In" TextAlignment="Center" PlaceholderText="Enter your Twitch secret" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="5" Width="456" TextChanged="Secret_In_TextChanged"/>
-        <TextBox x:Name="Token_In" TextAlignment="Center" PlaceholderText="Enter your Twitch token" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="6" Width="456" TextChanged="Token_In_TextChanged"/>
-        <TextBox x:Name="Channel_In" TextAlignment="Center" PlaceholderText="Enter your Twitch channel name" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="7" Width="456" TextChanged="Channel_In_TextChanged"/>
+            <TextBox x:Name="ClientID_In" TextAlignment="Center" PlaceholderText="Enter your Twitch client ID" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="4" Width="456" TextChanged="ClientID_In_TextChanged"/>
+            <TextBox x:Name="Secret_In" TextAlignment="Center" PlaceholderText="Enter your Twitch secret" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="5" Width="456" TextChanged="Secret_In_TextChanged"/>
+            <TextBox x:Name="Token_In" TextAlignment="Center" PlaceholderText="Enter your Twitch token" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="6" Width="456" TextChanged="Token_In_TextChanged"/>
+            <TextBox x:Name="Channel_In" TextAlignment="Center" PlaceholderText="Enter your Twitch channel name" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="7" Width="456" TextChanged="Channel_In_TextChanged"/>
 
-        <Button x:Name="ApplyButton" Content="Apply" FontWeight="Bold" FontFamily="Arial Black" VerticalAlignment="Top"  Grid.Column="1" Margin="214,30,0,0" Grid.Row="8" Click="ApplyButton_Click"/>
-        <Button x:Name="ConnectButton" Content="Connect" FontWeight="Bold" FontFamily="Arial Black" VerticalAlignment="Top"  Grid.Column="1" Margin="339,30,0,0" Grid.Row="8" Click="ConnectButton_Click"/>
-        <TextBlock x:Name="ConnectedText" muxc:Grid.Column="1" IsColorFontEnabled="True" Foreground="Green" Visibility="Collapsed" FontWeight="Bold" FontFamily="Arial Black" HorizontalAlignment="Left" Margin="339,8,0,0" muxc:Grid.Row="8" Text="Connected!" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock x:Name="FailedText" muxc:Grid.Column="1" IsColorFontEnabled="True" Foreground="Red" Visibility="Collapsed" FontWeight="Bold" FontFamily="Arial Black" HorizontalAlignment="Left" Margin="354,8,0,0" muxc:Grid.Row="8" Text="Failed!" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <Button x:Name="ApplyButton" Content="Apply" FontWeight="Bold" FontFamily="Arial Black" VerticalAlignment="Top"  Grid.Column="1" Margin="214,30,0,0" Grid.Row="8" Click="ApplyButton_Click"/>
+            <Button x:Name="ConnectButton" Content="Connect" FontWeight="Bold" FontFamily="Arial Black" VerticalAlignment="Top"  Grid.Column="1" Margin="339,30,0,0" Grid.Row="8" Click="ConnectButton_Click"/>
+            <TextBlock x:Name="ConnectedText" muxc:Grid.Column="1" IsColorFontEnabled="True" Foreground="Green" Visibility="Collapsed" FontWeight="Bold" FontFamily="Arial Black" HorizontalAlignment="Left" Margin="339,8,0,0" muxc:Grid.Row="8" Text="Connected!" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBlock x:Name="FailedText" muxc:Grid.Column="1" IsColorFontEnabled="True" Foreground="Red" Visibility="Collapsed" FontWeight="Bold" FontFamily="Arial Black" HorizontalAlignment="Left" Margin="354,8,0,0" muxc:Grid.Row="8" Text="Failed!" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
-    </Grid>
+        </Grid>
+    </ScrollViewer>
 </Page>

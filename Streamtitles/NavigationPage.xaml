@@ -13,6 +13,7 @@
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem x:Name="Home_Page" Icon="Home" Content="Home" />
                 <muxc:NavigationViewItem x:Name="Data_Page" Icon="List" Content="Database" />
+                <muxc:NavigationViewItem x:Name="Operations_Page" Icon="List" Content="Operation" />
                 <muxc:NavigationViewItem x:Name="Suggest_Page" Icon="List" Content="Save" />
             </muxc:NavigationView.MenuItems>
             <Frame x:Name="contentFrame"/>

@@ -41,8 +41,6 @@ namespace Streamtitles
         { get; set; }
         public static string Channel
         { get; set; }
-        public static List<string> Categories
-        { get; private set; }
       
 
         public object TwitchApiAddress { get; private set; }
@@ -51,7 +49,6 @@ namespace Streamtitles
         {
             localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             api = new TwitchAPI();
-            Categories = new List<string>();
         }
 
         public static void Generate_ConnectionString()
@@ -125,7 +122,6 @@ namespace Streamtitles
                     values[i] = "(" + subscription.Data[i].Id + ", '" + subscription.Data[i].Name.Replace("'", "") + "')";
                 }
                 MySqlCommand fillCategories = new MySqlCommand(result + string.Join(", ", values) + ";", mysqlcon);
-                Debug.WriteLine(result + string.Join(", ", values) + ";");
                 mysqlcon.Open();
                 fillCategories.Prepare();
                 fillCategories.ExecuteNonQuery();
