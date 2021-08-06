@@ -66,7 +66,7 @@ namespace Streamtitles
         private async void GetAllCategories()
         {
             Categories.Clear();
-            _getAllCategories = new MySqlCommand("SELECT name FROM categories, ct_intersect WHERE(ct_intersect.gameid = categories.gameid) ORDER BY name ASC;", Data.mysqlcon);
+            _getAllCategories = new MySqlCommand("SELECT DISTINCT name FROM categories, ct_intersect WHERE(ct_intersect.gameid = categories.gameid) ORDER BY name ASC;", Data.mysqlcon);
             Data.mysqlcon.Open();
             using (DbDataReader res = await _getAllCategories.ExecuteReaderAsync())
             {

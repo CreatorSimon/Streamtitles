@@ -45,5 +45,20 @@ namespace Streamtitles
         {
             Data.GetAllGames();
         }
+
+        private void Get_Current_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Data.GetCurrentTitleAndCategory();
+        }
+
+        private void Save_Current_Button_Click(object sender, RoutedEventArgs e)
+        {
+            ListView temp = new ListView();
+            CategoryEntry entry = new CategoryEntry();
+            entry.GameID = Data.CurrentGame;
+            entry.Name = Data.CurrentTitle;
+            temp.Items.Add(entry);
+            Data.SaveToDatabase(Data.CurrentTitle, "", temp);
+        }
     }
 }

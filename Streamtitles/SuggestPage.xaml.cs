@@ -33,14 +33,6 @@ namespace Streamtitles
 
     public sealed partial class SuggestPage : Page
     {
-        private MySqlCommand addToDatabaseTitle;
-        private MySqlCommand getTitleID;
-        private MySqlCommand addToDatabaseGenre;
-        private MySqlCommand addToDatabaseCategory;
-
-        private int titleid;
-
-
         public SuggestPage()
         {
             this.InitializeComponent();
@@ -51,67 +43,15 @@ namespace Streamtitles
         {
             if (Data.mysqlcon != null)
             {
-                Data.mysqlcon.Open();
-                addToDatabaseTitle = new MySqlCommand("INSERT IGNORE INTO titles (title) VALUES (@title);", Data.mysqlcon);
-                addToDatabaseTitle.Parameters.AddWithValue("@title", Title.Text);
-                await addToDatabaseTitle.ExecuteNonQueryAsync();
-
-                getTitleID = new MySqlCommand("SELECT idtitle FROM titles WHERE title = @title", Data.mysqlcon);
-                getTitleID.Parameters.AddWithValue("@title", Title.Text);
-
-                using (DbDataReader res = await getTitleID.ExecuteReaderAsync())
-                {
-                    await res.ReadAsync();
-                    titleid = res.GetInt32(0);
-                }
-
-                string[] subs1 = Genre.Text.Split(',');
-                string[] formed1 = new string[subs1.Length];
-                string result1 = "INSERT IGNORE INTO genres (idtitle, genre) VALUES ";
-
-                for(int i = 0; i < subs1.Length; i++)
-                {
-                    formed1[i] = "( @titleid, " + "'" + subs1[i] + "'" + ")";
-                }
-
-                result1 = result1 + string.Join(", ", formed1);
-
-                addToDatabaseGenre = new MySqlCommand(result1 + ";", Data.mysqlcon);
-                //addToDatabaseGenre.Parameters.AddWithValue("@genre", Genre.Text);
-                addToDatabaseGenre.Parameters.AddWithValue("@titleid", titleid);
-                addToDatabaseGenre.Prepare();
-                await addToDatabaseGenre.ExecuteNonQueryAsync();
-
-                string[] subs = new string[EnabledCategories.Items.Count];
-                int j = 0;
-                foreach(CategoryEntry item in EnabledCategories.Items.ToList())
-                {
-                    subs[j] = item.GameID;
-                    j++;
-                }
-                string[] formed = new string[subs.Length];
-                string result = "INSERT IGNORE INTO ct_intersect (idtitle, gameid) VALUES ";
-
-                for (int i = 0; i < subs.Length; i++)
-                {
-                    formed[i] = "( @titleid, " + subs[i] + ")";
-                }
-
-                result = result + string.Join(", ", formed);
-
-                Debug.WriteLine(result);
-                addToDatabaseCategory = new MySqlCommand(result + ";", Data.mysqlcon);
-                addToDatabaseCategory.Parameters.AddWithValue("@titleid", titleid);
-                addToDatabaseCategory.Prepare();
-                await addToDatabaseCategory.ExecuteNonQueryAsync();
-
-                Data.mysqlcon.Close();
+                Data.SaveToDatabase(Title.Text, Genre.Text, EnabledCategories);
             }
             else
             {
                 Title.PlaceholderText = "No connection to database!";
             }
         }
+
+
 
         private async void GetAllCategories()
         {

@@ -12,7 +12,10 @@
     <ScrollViewer>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="400" />
+                <RowDefinition Height="200" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="100" />
                 <RowDefinition Height="100" />
                 <RowDefinition Height="100" />
             </Grid.RowDefinitions>
@@ -28,6 +31,12 @@
 
             <Button x:Name="Get_Button" Content="Get" Grid.Row="2" HorizontalAlignment="Center" Margin="0,0,0,0" FontFamily="Arial Black" FontWeight="Bold" FontSize="40" Click="Get_Button_Click"/>
 
+            <TextBlock Text="Get current title and game and save it in the database!" FontSize="40" HorizontalAlignment="Center" FontFamily="Arial Black" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="3"/>
+
+            <Button x:Name="Get_Current_Button" Content="Get Current" Grid.Row="4" HorizontalAlignment="Center" Margin="0,0,0,0" FontFamily="Arial Black" FontWeight="Bold" FontSize="40" Click="Get_Current_Button_Click"/>
+
+            <Button x:Name="Save_Current_Button" Content="Save Current" Grid.Row="5" HorizontalAlignment="Center" Margin="0,0,0,0" FontFamily="Arial Black" FontWeight="Bold" FontSize="40" Click="Save_Current_Button_Click"/>
+            
         </Grid>
     </ScrollViewer>
 </Page>

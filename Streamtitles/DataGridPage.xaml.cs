@@ -83,16 +83,6 @@ namespace Streamtitles
 
         }
 
-        private void sortCategory_Click(object sender, RoutedEventArgs e)
-        {
-            DataGrid.ItemsSource = new ObservableCollection<DatabaseListEntry>(from item in DataList where item.Category.ToLower().Contains(SearchBox.Text.ToLower()) select item);
-        }
-
-        private void clearFilter_Click(object sender, RoutedEventArgs e)
-        {
-            DataGrid.ItemsSource = DataList;
-        }
-
         private void SearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             DataGrid.ItemsSource = new ObservableCollection<DatabaseListEntry>(from item in DataList where item.Category.ToLower().Contains(SearchBox.Text.ToLower()) select item);
