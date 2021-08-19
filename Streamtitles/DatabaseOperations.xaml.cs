@@ -27,38 +27,57 @@ namespace Streamtitles
         public DatabaseOperations()
         {
             this.InitializeComponent();
-            if (Data.CheckTwitchConnection())
+        }
+
+        private void GetButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (Data.TryTwitchConnection())
             {
-                Get_Button.IsEnabled = true;
-                FailText.Visibility = Visibility.Collapsed;
-                SuccessText.Visibility = Visibility.Visible;
+                Data.GetAllGames();
+                TwitchFailText.Visibility = Visibility.Collapsed;
+                TwitchSuccessText.Visibility = Visibility.Visible;
             }
             else
             {
-                Get_Button.IsEnabled = false;
-                SuccessText.Visibility = Visibility.Collapsed;
-                FailText.Visibility = Visibility.Visible;
+                TwitchSuccessText.Visibility = Visibility.Collapsed;
+                TwitchFailText.Visibility = Visibility.Visible;
             }
         }
 
-        private void Get_Button_Click(object sender, RoutedEventArgs e)
+        private void GetCurrentButtonClick(object sender, RoutedEventArgs e)
         {
-            Data.GetAllGames();
+            if(Data.TryTwitchConnection())
+            {
+                Data.GetCurrentTitleAndCategory();
+                CurrentTitle.Text = Data.CurrentTitle;
+                TwitchFailText.Visibility = Visibility.Collapsed;
+                TwitchSuccessText.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                TwitchSuccessText.Visibility = Visibility.Collapsed;
+                TwitchFailText.Visibility = Visibility.Visible;
+            }
         }
 
-        private void Get_Current_Button_Click(object sender, RoutedEventArgs e)
-        {
-            Data.GetCurrentTitleAndCategory();
-        }
-
-        private void Save_Current_Button_Click(object sender, RoutedEventArgs e)
+        private void SaveCurrentButtonClick(object sender, RoutedEventArgs e)
         {
             ListView temp = new ListView();
             CategoryEntry entry = new CategoryEntry();
             entry.GameID = Data.CurrentGame;
             entry.Name = Data.CurrentTitle;
             temp.Items.Add(entry);
-            Data.SaveToDatabase(Data.CurrentTitle, "", temp);
+            if (Data.TrySqlConnection())
+            {
+                Data.SaveToDatabase(Data.CurrentTitle, "", temp);
+                SqlFailText.Visibility = Visibility.Collapsed;
+                SqlSuccessText.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                SqlSuccessText.Visibility = Visibility.Collapsed;
+                SqlFailText.Visibility = Visibility.Visible;
+            }
         }
     }
 }

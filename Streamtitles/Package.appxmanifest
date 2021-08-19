@@ -7,7 +7,7 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="ae15e56a-a73d-4660-9777-3365335754bd"
+    Name="Streamtitles"
     Publisher="CN=ObiSi"
     Version="1.0.0.0" />
 

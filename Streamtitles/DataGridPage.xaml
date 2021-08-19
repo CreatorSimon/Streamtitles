@@ -36,7 +36,13 @@
     </Grid.RowDefinitions>
     <StackPanel Orientation="Horizontal" Margin="12">
             <TextBlock Text="Database Entries" VerticalAlignment="Center" Margin="5,0" Style="{ThemeResource SubtitleTextBlockStyle}" FontFamily="Arial Black" FontWeight="Bold"/>
-            <AutoSuggestBox x:Name="SearchBox" VerticalAlignment="Center" MinWidth="200" PlaceholderText="Search" Margin="10, 0, 0, 0" TextChanged="SearchBox_TextChanged"/>
+            <ComboBox x:Name="SwitchSeachIndex" Width="100" SelectedValue="Category">
+                <x:String>Genre</x:String>
+                <x:String>Category</x:String>
+            </ComboBox>
+              
+            <AutoSuggestBox x:Name="SearchBox" VerticalAlignment="Center" MinWidth="200" PlaceholderText="Search" Margin="10, 0, 0, 0" TextChanged="SearchBoxTextChanged"/>
+        
         </StackPanel>
         <controls:DataGrid
       Grid.Row="1"

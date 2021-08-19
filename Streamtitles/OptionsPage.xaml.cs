@@ -17,74 +17,42 @@ namespace Streamtitles
         public OptionsPage()
         {
             this.InitializeComponent();
-            Data.Load_Settings();
-            if(Data.Ip != null)
-            {
-                IP_In.PlaceholderText = Data.Ip;
-            }
-            if (Data.Port != null)
-            {
-                Port_In.PlaceholderText = Data.Port;
-            }
-            if (Data.User != null)
-            {
-                User_In.PlaceholderText = Data.User;
-            }
+            Data.LoadSettings();
             if (Data.Channel != null)
             {
-                Channel_In.PlaceholderText = Data.Channel;
+                ChannelIn.PlaceholderText = Data.Channel;
             }
         }
 
-        private void IP_In_TextChanged(object sender, TextChangedEventArgs e)
+        private void ClientIDInTextChanged(object sender, TextChangedEventArgs e)
         {
-            Data.Ip = IP_In.Text;
+            Data.ClientID = ClientIDIn.Text;
         }
 
-        private void User_In_TextChanged(object sender, TextChangedEventArgs e)
+        private void SecretInTextChanged(object sender, RoutedEventArgs e)
         {
-            Data.User = User_In.Text;
+            Data.Secret = SecretIn.Text;
         }
 
-        private void Password_In_PasswordChanged(object sender, RoutedEventArgs e)
+        private void TokenInTextChanged(object sender, RoutedEventArgs e)
         {
-            Data.Password = Password_In.Password;
+            Data.Token = TokenIn.Text;
         }
 
-        private void Port_In_TextChanged(object sender, RoutedEventArgs e)
+        private void ChannelInTextChanged(object sender, RoutedEventArgs e)
         {
-            Data.Port = Port_In.Text;
+            Data.Channel = ChannelIn.Text;
         }
 
-        private void ClientID_In_TextChanged(object sender, TextChangedEventArgs e)
+        private void ApplyButtonClick(object sender, RoutedEventArgs e)
         {
-            Data.ClientID = ClientID_In.Text;
-        }
-
-        private void Secret_In_TextChanged(object sender, RoutedEventArgs e)
-        {
-            Data.Secret = Secret_In.Text;
-        }
-
-        private void Token_In_TextChanged(object sender, RoutedEventArgs e)
-        {
-            Data.Token = Token_In.Text;
-        }
-
-        private void Channel_In_TextChanged(object sender, RoutedEventArgs e)
-        {
-            Data.Channel = Channel_In.Text;
-        }
-
-        private void ApplyButton_Click(object sender, RoutedEventArgs e)
-        {
-            Data.Save_Settings();
+            Data.SaveSettings();
+            Data.ChangeApiCredentials();
 
         }
-        private void ConnectButton_Click(object sender, RoutedEventArgs e)
+        private void ConnectButtonClick(object sender, RoutedEventArgs e)
         {
-            Data.Generate_ConnectionString();
-            if (Data.Connect_sql())
+            if (Data.TrySqlConnection())
             {
                 ConnectButton.IsEnabled = false;
 

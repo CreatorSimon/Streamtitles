@@ -36,12 +36,12 @@ namespace Streamtitles
         public SuggestPage()
         {
             this.InitializeComponent();
-            GetAllCategories();
+            Data.GetAllCategories(DisabledCategories);
         }
 
-        private async void SaveButton_Click(object sender, RoutedEventArgs e)
+        private async void SaveButtonClick(object sender, RoutedEventArgs e)
         {
-            if (Data.mysqlcon != null)
+            if (Data.TrySqlConnection())
             {
                 Data.SaveToDatabase(Title.Text, Genre.Text, EnabledCategories);
             }
@@ -51,27 +51,7 @@ namespace Streamtitles
             }
         }
 
-
-
-        private async void GetAllCategories()
-        {
-            MySqlCommand _getAllCategories = new MySqlCommand("SELECT name, gameid FROM categories ORDER BY name ASC;", Data.mysqlcon);
-            Data.mysqlcon.Open();
-            using (DbDataReader res = await _getAllCategories.ExecuteReaderAsync())
-            {
-                while (await res.ReadAsync())
-                {
-                    var entry = new CategoryEntry();
-                    entry.Name = res.GetString(0);
-                    entry.GameID = res.GetString(1);
-
-                    DisabledCategories.Items.Add(entry);
-                }
-            }
-            Data.mysqlcon.Close();
-        }
-
-        private void DisabledCategories_ItemClick(object sender, ItemClickEventArgs e)
+        private void DisabledCategoriesItemClick(object sender, ItemClickEventArgs e)
         {
             if(e.ClickedItem != null)
             {
@@ -87,7 +67,7 @@ namespace Streamtitles
             }
         }
 
-        private void EnabledCategories_ItemClick(object sender, ItemClickEventArgs e)
+        private void EnabledCategoriesItemClick(object sender, ItemClickEventArgs e)
         {
             if (e.ClickedItem != null)
             {

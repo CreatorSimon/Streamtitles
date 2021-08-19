@@ -18,24 +18,34 @@
                 <RowDefinition Height="100" />
                 <RowDefinition Height="100" />
                 <RowDefinition Height="100" />
+                <RowDefinition Height="100" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Fill database with the 100 top twitch games!" FontSize="40" HorizontalAlignment="Center" FontFamily="Arial Black" FontWeight="Bold" VerticalAlignment="Center"/>
+            <TextBlock Text="Fill database with the 100 top twitch games!" Grid.Row="0" FontSize="40" HorizontalAlignment="Center" FontFamily="Arial Black" FontWeight="Bold" Grid.ColumnSpan="2" VerticalAlignment="Center"/>
 
-            <TextBlock x:Name="SuccessText" Grid.Row="1" HorizontalAlignment="Center" FontFamily="Arial Black" FontSize="40" FontWeight="Bold" Foreground="Green" Text="Twitch connection successfull!"/>
+            <TextBlock Text="Status:" FontSize="40" Grid.Row="1" HorizontalAlignment="Center" FontFamily="Arial Black" FontWeight="Bold" Grid.ColumnSpan="2" VerticalAlignment="Center"/>
 
-            <TextBlock x:Name="FailText" Grid.Row="1" HorizontalAlignment="Center" FontFamily="Arial Black" FontSize="40" FontWeight="Bold" Foreground="Red" Text="Twitch connection not successfull!"/>
+            <TextBlock x:Name="TwitchSuccessText" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontFamily="Arial Black" FontSize="40" FontWeight="Bold" Foreground="Green" Text="Twitch connection successfull!" Visibility="Collapsed"/>
 
-            <Button x:Name="Get_Button" Content="Get" Grid.Row="2" HorizontalAlignment="Center" Margin="0,0,0,0" FontFamily="Arial Black" FontWeight="Bold" FontSize="40" Click="Get_Button_Click"/>
+            <TextBlock x:Name="SqlSuccessText" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontFamily="Arial Black" FontSize="40" FontWeight="Bold" Foreground="Green" Text="Sql connection successfull!" Visibility="Collapsed"/>
 
-            <TextBlock Text="Get current title and game and save it in the database!" FontSize="40" HorizontalAlignment="Center" FontFamily="Arial Black" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="3"/>
+            <TextBlock x:Name="TwitchFailText" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontFamily="Arial Black" FontSize="40" FontWeight="Bold" Foreground="Red" Text="Twitch connection not successfull!" Visibility="Collapsed"/>
 
-            <Button x:Name="Get_Current_Button" Content="Get Current" Grid.Row="4" HorizontalAlignment="Center" Margin="0,0,0,0" FontFamily="Arial Black" FontWeight="Bold" FontSize="40" Click="Get_Current_Button_Click"/>
+            <TextBlock x:Name="SqlFailText" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontFamily="Arial Black" FontSize="40" FontWeight="Bold" Foreground="Red" Text="Sql connection not successfull!" Visibility="Collapsed"/>
 
-            <Button x:Name="Save_Current_Button" Content="Save Current" Grid.Row="5" HorizontalAlignment="Center" Margin="0,0,0,0" FontFamily="Arial Black" FontWeight="Bold" FontSize="40" Click="Save_Current_Button_Click"/>
+            <Button x:Name="GetButton" Content="Get" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,0,0,0" FontFamily="Arial Black" FontWeight="Bold" FontSize="40" Click="GetButtonClick"/>
+
+            <TextBlock Text="Get current title and game and save it in the database!" Grid.ColumnSpan="2" FontSize="40" HorizontalAlignment="Center" FontFamily="Arial Black" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="4"/>
+
+            <TextBox x:Name="CurrentTitle" Grid.ColumnSpan="2" Grid.Row="5" Margin="0,0,0,0" Height="50" Width="1000" PlaceholderText="The current Twitch title" VerticalAlignment="Center" FontFamily="Arial Black" FontSize="30" FontWeight="Bold" TextAlignment="Center"/>
+
+            <Button x:Name="GetCurrentButton" Content="Get Current" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" Margin="0,0,0,0" FontFamily="Arial Black" FontWeight="Bold" FontSize="40" Click="GetCurrentButtonClick"/>
+
+            <Button x:Name="SaveCurrentButton" Content="Save Current" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,0" FontFamily="Arial Black" FontWeight="Bold" FontSize="40" Click="SaveCurrentButtonClick"/>
             
         </Grid>
     </ScrollViewer>

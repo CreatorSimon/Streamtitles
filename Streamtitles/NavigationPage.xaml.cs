@@ -38,7 +38,7 @@ namespace Streamtitles
             _suggestPage = new SuggestPage();
             _dataPage = new DataGridPage();
             _databaseOperationsPage = new DatabaseOperations();
-            Data.Load_Settings();
+            Data.LoadSettings();
         }
 
         private void NavBar_Click(NavigationView sender, NavigationViewItemInvokedEventArgs args)

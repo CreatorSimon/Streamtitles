@@ -19,95 +19,45 @@ namespace Streamtitles
 
     public sealed partial class MainPage : Page
     {
-        private MySqlCommand _readTitle;
-        private MySqlCommand _getAllCategories;
-        private string _currentGame;
-
-        private List<string> Categories { get; set; }
-
         public MainPage()
         {
             this.InitializeComponent();
 
-            Categories = new List<string>();
 
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(500, 500));
-            Data.Load_Settings();
-            Data.Generate_ConnectionString();
-            CheckConnection();
-            GetAllCategories();
+            Data.LoadSettings();
+            Data.ChangeApiCredentials();
+            Data.GetAllCategories();
+            SetCategoriesList();
             if (CategoryChangeBox.SelectedIndex == -1)
             {
                 CategoryChangeBox.SelectedIndex = 0;
             }
         }
 
-        private async void GenerateButton_Click(object sender, RoutedEventArgs e)
+        private void GenerateButtonClick(object sender, RoutedEventArgs e)
         {
-            if (Data.Connect_sql())
-            {
-                Data.mysqlcon.Open();
-                _readTitle = new MySqlCommand("SELECT titles.title, categories.gameid FROM titles, categories, ct_intersect WHERE(titles.idtitle = ct_intersect.idtitle and @Category=categories.name and ct_intersect.gameid = categories.gameid) ORDER BY RAND() LIMIT 1;", Data.mysqlcon);
-                _readTitle.Parameters.AddWithValue("@Category", CategoryChangeBox.SelectedItem);
-                using (DbDataReader res = await _readTitle.ExecuteReaderAsync())
-                {
-                    await res.ReadAsync();
-                    StreamOut.Text = res.GetString(0);
-                    _currentGame = res.GetString(1);
-                }
-                Data.mysqlcon.Close();
-            }
-            else
-            {
-                StreamOut.PlaceholderText = "No connection to database!";
-            }
+            Data.GenerateTitle(CategoryChangeBox.SelectedItem.ToString());
+            StreamOut.Text = Data.CurrentTitle;
         }
 
-        private async void GetAllCategories()
-        {
-            Categories.Clear();
-            _getAllCategories = new MySqlCommand("SELECT DISTINCT name FROM categories, ct_intersect WHERE(ct_intersect.gameid = categories.gameid) ORDER BY name ASC;", Data.mysqlcon);
-            Data.mysqlcon.Open();
-            using (DbDataReader res = await _getAllCategories.ExecuteReaderAsync())
-            {
-                while (await res.ReadAsync())
-                {
-                    Categories.Add(res.GetString(0));
-                }
-            }
-            Data.mysqlcon.Close();
-        }
-
-        private void CheckConnection()
-        {
-            var twCon = Data.CheckTwitchConnection();
-            var DataCon = Data.Connect_sql();
-            if(DataCon && twCon)
-            {
-                StreamOut.PlaceholderText = "Database and Twitch connection are working!" ;
-            }
-            else if(DataCon && !twCon)
-            {
-                StreamOut.PlaceholderText = "Twitch connection not working!";
-            }else if(!DataCon && twCon)
-            {
-                StreamOut.PlaceholderText = "Database connection not working!";
-            }
-            else
-            {
-                StreamOut.PlaceholderText = "Database and Twitch connection not working!";
-            }
-        }
-
-        private void StreamOut_TextChanged(object sender, TextChangedEventArgs e)
+        private void StreamOutTextChanged(object sender, TextChangedEventArgs e)
         {
         }
 
-        private void SetButton_Click(object sender, RoutedEventArgs e)
+        private void SetButtonClick(object sender, RoutedEventArgs e)
         {
-            Data.ChangeTwitchTitleAndCategory(StreamOut.Text, _currentGame);
+            Data.ChangeTwitchTitleAndCategory(StreamOut.Text, Data.CurrentGame);
         }
 
+        private void SetCategoriesList()
+        {
+            CategoryChangeBox.Items.Clear();
+            foreach (string item in Data.Categories)
+            {
+                CategoryChangeBox.Items.Add(item);
+            }
+        }
 
     }
 }

@@ -29,6 +29,7 @@
             <muxc:TextBlock HorizontalAlignment="Center" Text="Save your title!" Grid.ColumnSpan="2" TextWrapping="Wrap" VerticalAlignment="Center" FontFamily="Arial Black" FontSize="50" FontWeight="Bold" />
 
             <muxc:TextBox x:Name="Title" muxc:Grid.Column="0" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" muxc:Grid.Row="1" PlaceholderText="Enter your title!" TextWrapping="Wrap" muxc:Grid.ColumnSpan="2" Width="591"/>
+            
             <muxc:TextBox x:Name="Genre"  muxc:Grid.Column="0" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" muxc:Grid.Row="2" PlaceholderText="Enter the genre!" TextWrapping="Wrap" muxc:Grid.ColumnSpan="2" Width="591"/>
 
             <TextBlock Text="Available Categories" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" Margin="0,20,0,0" FontFamily="Arial Black" FontWeight="Bold" FontSize="20"/>
@@ -37,11 +38,11 @@
 
             <TextBlock Text="=>" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" TextLineBounds="Tight" Foreground="Gray"  Margin="0,0,0,0" FontFamily="Arial Black" FontWeight="Bold" FontSize="100"/>
 
-            <ListView x:Name="DisabledCategories" Grid.Row="3" HorizontalAlignment="Center" Width="253" Height="200" Background="Black" Opacity="0.5" DisplayMemberPath="Name" ItemClick="DisabledCategories_ItemClick" IsItemClickEnabled="True"/>
+            <ListView x:Name="DisabledCategories" Grid.Row="3" HorizontalAlignment="Center" Width="253" Height="200" Background="Black" Opacity="0.5" DisplayMemberPath="Name" ItemClick="DisabledCategoriesItemClick" IsItemClickEnabled="True"/>
 
-            <ListView x:Name="EnabledCategories" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center"  Width="253" Height="200" Background="Black" DisplayMemberPath="Name" Opacity="0.5" IsItemClickEnabled="True" ItemClick="EnabledCategories_ItemClick" />
+            <ListView x:Name="EnabledCategories" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center"  Width="253" Height="200" Background="Black" DisplayMemberPath="Name" Opacity="0.5" IsItemClickEnabled="True" ItemClick="EnabledCategoriesItemClick" />
 
-            <muxc:Button x:Name="SaveButton" Content="Save" Margin="0,10,0,0" muxc:Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Arial Black" FontWeight="Bold" Click="SaveButton_Click"/>
+            <muxc:Button x:Name="SaveButton" Content="Save" Margin="0,10,0,0" muxc:Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Arial Black" FontWeight="Bold" Click="SaveButtonClick"/>
         </Grid>
     </ScrollViewer>
 </Page>

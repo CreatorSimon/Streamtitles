@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Common;
+using System.Data.SqlClient;
+using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -41,7 +43,7 @@ namespace Streamtitles
     public sealed partial class DataGridPage : Page
     {
 
-        private MySqlCommand _GetTableTitle;
+     
         
         public List<DatabaseListEntry> DataList { get; set; }
 
@@ -50,42 +52,18 @@ namespace Streamtitles
             this.InitializeComponent();
 
             DataList = new List<DatabaseListEntry>();
-
-            GetData();
+            Data.GetData(DataList);
         }
 
-        public async void GetData()
+        private void SearchBoxTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-            if (Data.mysqlcon != null)
+            if (SwitchSeachIndex.SelectedValue.Equals("Category"))
             {
-                Data.mysqlcon.Open();
-                _GetTableTitle = new MySqlCommand("SELECT titles.idtitle, titles.title , GROUP_CONCAT(DISTINCT genre SEPARATOR ', ') as genre, GROUP_CONCAT(DISTINCT name SEPARATOR ', ') as category FROM titles, genres, categories, ct_intersect WHERE(titles.idtitle = genres.idtitle and titles.idtitle = ct_intersect.idtitle and ct_intersect.gameid = categories.gameid) GROUP BY titles.idtitle;", Data.mysqlcon);
-                using (DbDataReader res = await _GetTableTitle.ExecuteReaderAsync())
-                {
-                    while (await res.ReadAsync())
-                    {
-
-                        var entry = new DatabaseListEntry();
-                        entry.IDTitle = res.GetInt32(0);
-                        entry.Title = res.GetString(1);
-                        entry.Genre = res.GetString(2);
-                        entry.Category = res.GetString(3);
-
-                        DataList.Add(entry);
-                    }
-                }
-                Data.mysqlcon.Close();
-            }
-            else
+                DataGrid.ItemsSource = new ObservableCollection<DatabaseListEntry>(from item in DataList where item.Category.ToLower().Contains(SearchBox.Text.ToLower()) select item);
+            }else if(SwitchSeachIndex.SelectedValue.Equals("Genre"))
             {
-
+                DataGrid.ItemsSource = new ObservableCollection<DatabaseListEntry>(from item in DataList where item.Genre.ToLower().Contains(SearchBox.Text.ToLower()) select item);
             }
-
-        }
-
-        private void SearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-        {
-            DataGrid.ItemsSource = new ObservableCollection<DatabaseListEntry>(from item in DataList where item.Category.ToLower().Contains(SearchBox.Text.ToLower()) select item);
         }
     }
 }
