@@ -58,7 +58,6 @@ namespace Streamtitles
         public static bool FullConnected { get; set; }
 
         public object TwitchApiAddress { get; private set; }
-        public static List<string> Categories { get; private set; }
 
         static Data()
         {
@@ -66,7 +65,6 @@ namespace Streamtitles
             api = new TwitchAPI();
             CurrentTitle = "";
             StartupCheck();
-            Categories = new List<string>();
             api.Helix.Settings.ClientId = ClientID;
             api.Helix.Settings.Secret = Secret;
             api.Helix.Settings.AccessToken = Token;
@@ -169,7 +167,6 @@ namespace Streamtitles
         {
             if (TrySqlConnection())
             {
-                Categories.Clear();
                 SQLiteCommand _getAllCategories = new SQLiteCommand("SELECT name, gameid FROM categories ORDER BY name ASC;", mysqlcon);
                 mysqlcon.Open();
                 using (DbDataReader res = await _getAllCategories.ExecuteReaderAsync())
@@ -184,11 +181,25 @@ namespace Streamtitles
                         {
                             DisabledCategories.Items.Add(entry);
                         }
-                        Categories.Add(entry.Name);
                     }
                 }
                 mysqlcon.Close();
             }
+        }
+
+        public static async void GetUsedCategories(List<string> Categories)
+        {
+            Categories.Clear();
+            SQLiteCommand _getAllCategories = new SQLiteCommand("SELECT DISTINCT name FROM categories, ct_intersect WHERE ct_intersect.gameid = categories.gameid ORDER BY name ASC;", mysqlcon);
+            mysqlcon.Open();
+            using (DbDataReader res = await _getAllCategories.ExecuteReaderAsync())
+            {
+                while (await res.ReadAsync())
+                {
+                    Categories.Add(res.GetString(0));
+                }
+            }
+            mysqlcon.Close();
         }
 
         public static bool TrySqlConnection()
@@ -327,13 +338,13 @@ namespace Streamtitles
             if (TrySqlConnection())
             {
                 mysqlcon.Open();
-                _readTitle = new SQLiteCommand("SELECT titles.title, categories.gameid FROM titles, categories, ct_intersect WHERE(titles.idtitle = ct_intersect.idtitle and @Category=categories.name and ct_intersect.gameid = categories.gameid) ORDER BY RAND() LIMIT 1;", mysqlcon);
+                _readTitle = new SQLiteCommand("SELECT titles.title, categories.gameid FROM titles, categories, ct_intersect WHERE(titles.idtitle = ct_intersect.idtitle and @Category=categories.name and ct_intersect.gameid = categories.gameid) ORDER BY RANDOM() LIMIT 1;", mysqlcon);
                 _readTitle.Parameters.AddWithValue("@Category", Selected);
                 using (DbDataReader res = await _readTitle.ExecuteReaderAsync())
                 {
                     await res.ReadAsync();
                     CurrentTitle = res.GetString(0);
-                    CurrentGame = res.GetString(1);
+                    CurrentGame = res.GetInt32(1).ToString();
                 }
                 mysqlcon.Close();
             }

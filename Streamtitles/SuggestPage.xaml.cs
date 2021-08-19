@@ -59,7 +59,7 @@ namespace Streamtitles
                 DisabledCategories.Items.Remove(e.ClickedItem);
 
                 //List<string> items = EnabledCategories.Items.Cast<string>().ToList().OrderBy(i => i).ToList();
-                //EnabledCategories.Items.
+                
 
                 //EnabledCategories.Items.Clear();
                 //items.ForEach(i => EnabledCategories.Items.Add(i));

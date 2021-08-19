@@ -50,11 +50,16 @@ namespace Streamtitles
             {
                 Data.GetCurrentTitleAndCategory();
                 CurrentTitle.Text = Data.CurrentTitle;
+
+                SqlSuccessText.Visibility = Visibility.Collapsed;
+                SqlFailText.Visibility = Visibility.Collapsed;
                 TwitchFailText.Visibility = Visibility.Collapsed;
                 TwitchSuccessText.Visibility = Visibility.Visible;
             }
             else
             {
+                SqlSuccessText.Visibility = Visibility.Collapsed;
+                SqlFailText.Visibility = Visibility.Collapsed;
                 TwitchSuccessText.Visibility = Visibility.Collapsed;
                 TwitchFailText.Visibility = Visibility.Visible;
             }
@@ -70,11 +75,15 @@ namespace Streamtitles
             if (Data.TrySqlConnection())
             {
                 Data.SaveToDatabase(Data.CurrentTitle, "", temp);
+                TwitchFailText.Visibility = Visibility.Collapsed;
+                TwitchSuccessText.Visibility = Visibility.Collapsed;
                 SqlFailText.Visibility = Visibility.Collapsed;
                 SqlSuccessText.Visibility = Visibility.Visible;
             }
             else
             {
+                TwitchFailText.Visibility = Visibility.Collapsed;
+                TwitchSuccessText.Visibility = Visibility.Collapsed;
                 SqlSuccessText.Visibility = Visibility.Collapsed;
                 SqlFailText.Visibility = Visibility.Visible;
             }

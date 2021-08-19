@@ -28,7 +28,7 @@
             <Button  x:Name="GenerateButton" Content="Generate" FontFamily="Arial Black" FontWeight="Bold" FontSize="36" Click="GenerateButtonClick" Grid.Row="3" Grid.ColumnSpan="2" Height="57" Width="205" HorizontalAlignment="Center"/>
             <Button x:Name="SetButton" Content="Set Title" Grid.Row="3" Height="58" Click="SetButtonClick" FontFamily="Arial Black" FontSize="36" FontWeight="Bold" Width="205" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center"/>
 
-            <muxc:ComboBox x:Name="CategoryChangeBox" Text="Categories" Margin="100,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0">
+            <muxc:ComboBox x:Name="CategoryChangeBox" Text="Categories" Margin="100,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" ItemsSource="{x:Bind Categories}">
             </muxc:ComboBox>
 
         </Grid>

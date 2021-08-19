@@ -19,6 +19,8 @@ namespace Streamtitles
 
     public sealed partial class MainPage : Page
     {
+        public List<string> Categories { get; set; } = new List<string>();
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -28,7 +30,7 @@ namespace Streamtitles
             Data.LoadSettings();
             Data.ChangeApiCredentials();
             Data.GetAllCategories();
-            SetCategoriesList();
+            Data.GetUsedCategories(Categories);
             if (CategoryChangeBox.SelectedIndex == -1)
             {
                 CategoryChangeBox.SelectedIndex = 0;
@@ -48,15 +50,6 @@ namespace Streamtitles
         private void SetButtonClick(object sender, RoutedEventArgs e)
         {
             Data.ChangeTwitchTitleAndCategory(StreamOut.Text, Data.CurrentGame);
-        }
-
-        private void SetCategoriesList()
-        {
-            CategoryChangeBox.Items.Clear();
-            foreach (string item in Data.Categories)
-            {
-                CategoryChangeBox.Items.Add(item);
-            }
         }
 
     }
