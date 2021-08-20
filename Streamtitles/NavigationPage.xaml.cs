@@ -27,6 +27,7 @@ namespace Streamtitles
         private SuggestPage _suggestPage;
         private DataGridPage _dataPage;
         private DatabaseOperations _databaseOperationsPage;
+        private OAuthPage _oAuthPage;
 
         public NavigationPage()
         {
@@ -37,6 +38,8 @@ namespace Streamtitles
             _optionsPage = new OptionsPage();
             _suggestPage = new SuggestPage();
             _dataPage = new DataGridPage();
+            _oAuthPage = new OAuthPage();
+
             _databaseOperationsPage = new DatabaseOperations();
             Data.LoadSettings();
         }
@@ -62,6 +65,10 @@ namespace Streamtitles
             if (args.InvokedItemContainer == Operations_Page)
             {
                 this.contentFrame.Navigate(typeof(DatabaseOperations));
+            }
+            if (args.InvokedItemContainer == OAuthPage)
+            {
+                this.contentFrame.Navigate(typeof(OAuthPage));
             }
         }
     }

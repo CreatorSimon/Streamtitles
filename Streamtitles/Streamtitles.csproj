@@ -126,6 +126,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OAuthPage.xaml.cs">
+      <DependentUpon>OAuthPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Data.cs" />
     <Compile Include="DatabaseOperations.xaml.cs">
       <DependentUpon>DatabaseOperations.xaml</DependentUpon>
@@ -169,6 +172,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="OAuthPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DatabaseOperations.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
