@@ -326,11 +326,11 @@ namespace Streamtitles
 
         public static void LoadSettings()
         {
-            ClientID = localSettings.Values["api clientid"] as string;
-            Secret = localSettings.Values["api secret"] as string;
-            Token = localSettings.Values["api token"] as string;
+            //ClientID = localSettings.Values["api clientid"] as string;
+            //Secret = localSettings.Values["api secret"] as string;
+            //Token = localSettings.Values["api token"] as string;
 
-            Channel = localSettings.Values["channel"] as string;
+            //Channel = localSettings.Values["channel"] as string;
         }
 
         public static async void GenerateTitle(string Selected)

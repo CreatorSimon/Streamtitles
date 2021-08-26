@@ -220,12 +220,20 @@
     <PackageReference Include="MySql.Data">
       <Version>8.0.26</Version>
     </PackageReference>
+    <PackageReference Include="NETStandard.HttpListener">
+      <Version>1.0.3.5</Version>
+    </PackageReference>
     <PackageReference Include="System.Data.SQLite">
       <Version>1.0.114.4</Version>
     </PackageReference>
     <PackageReference Include="TwitchLib.Api">
       <Version>3.2.4</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="WindowsDesktop, Version=10.0.19041.0">
+      <Name>Windows Desktop Extensions for the UWP</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

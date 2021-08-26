@@ -1,4 +1,4 @@
-﻿<Page
+<Page
     x:Class="Streamtitles.OAuthPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -13,12 +13,6 @@
                 BorderThickness="0" Padding="0" Background="Transparent">
             <Image Source="Assets/btn_google_sign-in.png" Stretch="UniformToFill"/>
         </Button>
-        <TextBox x:Name="textBoxOutput" MinHeight="158" Margin="22,22,22,22" TextWrapping="Wrap" Text=""
-                IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
-                RelativePanel.Below="button"
-                RelativePanel.AlignLeftWithPanel="True"
-                RelativePanel.AlignRightWithPanel="True"
-                RelativePanel.AlignBottomWithPanel="True"
-        />
+        <WebView x:Name="Test"/>
     </RelativePanel>
 </Page>

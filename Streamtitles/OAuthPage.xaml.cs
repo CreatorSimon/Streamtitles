@@ -5,13 +5,20 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Windows.Storage;
+using Windows.ApplicationModel;
 using System.Diagnostics;
-using System.Net.Http;
 using System.Text;
 using Windows.Data.Json;
 using Windows.Storage.Streams;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
+using System.Threading.Tasks;
+using System.IO;
+using Newtonsoft.Json;
+using Microsoft.Extensions.Logging;
+using System.Net.Http;
+using System.Net;
+
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -26,9 +33,9 @@ namespace Streamtitles
         /// <summary>
         /// OAuth 2.0 client configuration.
         /// </summary>
-        const string clientID = "ugz3rstpspgy5r9e7khalu5qw9xj86";
-        const string clientSecret = "bncjqqhb33z357bxnhycz8dpodhat0";
-        const string redirectURI = "pw.oauth2:/oauth2redirect";
+        const string clientID = "24hhvenpc25ymrrjcj6t9eva2heo6n";
+        const string clientSecret = "caqxzplx2ncar6433oiljkczxu65i6";
+        const string redirectURI = "http://localhost:50450/";
         const string authorizationEndpoint = "https://id.twitch.tv/oauth2/authorize";
         const string refreshEndpoint = "https://id.twitch.tv/oauth2/token--data-urlencode?grant_type=refresh_token";
         const string tokenEndpoint = "https://id.twitch.tv/oauth2/token";
@@ -42,7 +49,7 @@ namespace Streamtitles
         /// <summary>
         /// Starts an OAuth 2.0 Authorization Request.
         /// </summary>
-        private void button_Click(object sender, RoutedEventArgs e)
+        private async void button_Click(object sender, RoutedEventArgs e)
         {
             // Generates state and PKCE values.
             string id_token = randomDataBase64url(32);
@@ -54,10 +61,10 @@ namespace Streamtitles
             // authorization response, so LocalSettings can be used to persist any needed values.
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
             localSettings.Values["id_token"] = id_token;
-            localSettings.Values["access_token"] = access_token;
+            localSettings.Values["code"] = access_token;
 
             // Creates the OAuth 2.0 authorization request.
-            string authorizationRequest = string.Format("{0}?client_id={2}&redirect_uri={1}&response_type=token%20id_token&scope=channel:manage:broadcast+openid",
+            string authorizationRequest = string.Format("{0}?client_id={2}&redirect_uri={1}&response_type=code&scope=channel:manage:broadcast+openid",
                 authorizationEndpoint,
                 System.Uri.EscapeDataString(redirectURI),
                 clientID
@@ -65,8 +72,26 @@ namespace Streamtitles
 
             output("Opening authorization request URI: " + authorizationRequest);
 
-            // Opens the Authorization URI in the browser.
-            var success = Windows.System.Launcher.LaunchUriAsync(new Uri(authorizationRequest));
+            var listener = new System.Net.Http.HttpListener(IPAddress.Loopback, 50450);
+            listener.Request += async (s, context) => {
+                var request = context.Request;
+                var response = context.Response;
+                if (request.HttpMethod == HttpMethods.Get)
+                {
+                    await response.WriteContentAsync($"Hello from Server at: {DateTime.Now}\r\n");
+                }
+                else
+                {
+                    response.MethodNotAllowed();
+                }
+                // Close the HttpResponse to send it back to the client.
+                response.Close();
+                listener.Close();
+            };
+            listener.Start();
+
+            var view = new WebView();
+            Test.Navigate(new Uri("https://twitch.tv/dunkingsimon"));
         }
 
         /// <summary>
@@ -89,22 +114,9 @@ namespace Streamtitles
                              .ToDictionary(c => c.Split('=')[0],
                                            c => Uri.UnescapeDataString(c.Split('=')[1]));
 
-                if (queryStringParams.ContainsKey("error"))
-                {
-                    output(String.Format("OAuth authorization error: {0}.", queryStringParams["error"]));
-                    return;
-                }
-
-                if (!queryStringParams.ContainsKey("access_token")
-                    || !queryStringParams.ContainsKey("id_token"))
-                {
-                    output("Malformed authorization response. " + queryString);
-                    return;
-                }
-
 
                 // Authorization Code is now ready to use!
-                output(Environment.NewLine + "Authorization code: " + queryStringParams.GetValueOrDefault("access_token"));
+                output(Environment.NewLine + "Authorization code: " + queryStringParams.GetValueOrDefault("code"));
             }
             else
             {
@@ -115,40 +127,40 @@ namespace Streamtitles
         async void performCodeExchangeAsync(string code, string code_verifier)
         {
             // Builds the Token request
-            string tokenRequestBody = string.Format("code={0}&redirect_uri={1}&client_id={2}&code_verifier={3}&scope=&grant_type=authorization_code",
-                code,
-                System.Uri.EscapeDataString(redirectURI),
-                clientID,
-                code_verifier
-                );
-            StringContent content = new StringContent(tokenRequestBody, Encoding.UTF8, "application/x-www-form-urlencoded");
+            //string tokenRequestBody = string.Format("code={0}&redirect_uri={1}&client_id={2}&code_verifier={3}&scope=&grant_type=authorization_code",
+            //    code,
+            //    System.Uri.EscapeDataString(redirectURI),
+            //    clientID,
+            //    code_verifier
+            //    );
+            //StringContent content = new StringContent(tokenRequestBody, Encoding.UTF8, "application/x-www-form-urlencoded");
 
-            // Performs the authorization code exchange.
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.AllowAutoRedirect = true;
-            HttpClient client = new HttpClient(handler);
+            //// Performs the authorization code exchange.
+            //HttpClientHandler handler = new HttpClientHandler();
+            //handler.AllowAutoRedirect = true;
+            //HttpClient client = new HttpClient(handler);
 
-            output(Environment.NewLine + "Exchanging code for tokens...");
-            HttpResponseMessage response = await client.PostAsync(tokenEndpoint, content);
-            string responseString = await response.Content.ReadAsStringAsync();
-            output(responseString);
+            //output(Environment.NewLine + "Exchanging code for tokens...");
+            //HttpResponseMessage response = await client.PostAsync(tokenEndpoint, content);
+            //string responseString = await response.Content.ReadAsStringAsync();
+            //output(responseString);
 
-            if (!response.IsSuccessStatusCode)
-            {
-                output("Authorization code exchange failed.");
-                return;
-            }
+            //if (!response.IsSuccessStatusCode)
+            //{
+            //    output("Authorization code exchange failed.");
+            //    return;
+            //}
 
-            // Sets the Authentication header of our HTTP client using the acquired access token.
-            JsonObject tokens = JsonObject.Parse(responseString);
-            string accessToken = tokens.GetNamedString("access_token");
-            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+            //// Sets the Authentication header of our HTTP client using the acquired access token.
+            //JsonObject tokens = JsonObject.Parse(responseString);
+            //string accessToken = tokens.GetNamedString("access_token");
+            //client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
 
-            // Makes a call to the Userinfo endpoint, and prints the results.
-            output("Making API Call to Userinfo...");
-            HttpResponseMessage userinfoResponse = client.GetAsync(userInfoEndpoint).Result;
-            string userinfoResponseContent = await userinfoResponse.Content.ReadAsStringAsync();
-            output(userinfoResponseContent);
+            //// Makes a call to the Userinfo endpoint, and prints the results.
+            //output("Making API Call to Userinfo...");
+            //HttpResponseMessage userinfoResponse = client.GetAsync(userInfoEndpoint).Result;
+            //string userinfoResponseContent = await userinfoResponse.Content.ReadAsStringAsync();
+            //output(userinfoResponseContent);
         }
 
 
@@ -158,7 +170,7 @@ namespace Streamtitles
         /// <param name="output">string to be appended</param>
         public void output(string output)
         {
-            textBoxOutput.Text = textBoxOutput.Text + output + Environment.NewLine;
+            //textBoxOutput.Text = textBoxOutput.Text + output + Environment.NewLine;
             Debug.WriteLine(output);
         }
 
