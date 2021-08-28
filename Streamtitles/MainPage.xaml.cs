@@ -28,7 +28,6 @@ namespace Streamtitles
 
             ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(500, 500));
             Data.LoadSettings();
-            Data.ChangeApiCredentials();
             Data.GetAllCategories();
             Data.GetUsedCategories(Categories);
             if (CategoryChangeBox.SelectedIndex == -1)

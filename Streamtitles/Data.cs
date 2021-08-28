@@ -40,7 +40,7 @@ namespace Streamtitles
         private static int titleid;
 
         public static string ClientID
-        { get; set; }
+        { get; } = "24hhvenpc25ymrrjcj6t9eva2heo6n";
         public static string Token
         { get; set; }
         public static string Title
@@ -50,7 +50,7 @@ namespace Streamtitles
         public static string Channel
         { get; set; }
         public static string CurrentTitle
-        { get; set; }
+        { get; set; } = "";
         public static string CurrentGame
         { get; set; }
         public static string Code
@@ -59,15 +59,13 @@ namespace Streamtitles
 
         public object TwitchApiAddress { get; private set; }
 
+
         static Data()
         {
             localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             api = new TwitchAPI();
-            ClientID = "24hhvenpc25ymrrjcj6t9eva2heo6n";
-            CurrentTitle = "";
             StartupCheck();
-            api.Helix.Settings.ClientId = ClientID;
-            api.Helix.Settings.AccessToken = Token;
+            ChangeApiCredentials();
         }
 
         public static void ChangeTwitchTitleAndCategory(string title, string category)
@@ -81,7 +79,7 @@ namespace Streamtitles
                 BackgroundWorker d = new BackgroundWorker();
                 d.DoWork += async (a, s) =>
                 {
-                    var user = await api.Helix.Users.GetUsersAsync(logins: new List<string>() { Channel });
+                    var user = await api.Helix.Users.GetUsersAsync(logins: new List<string>() { "dunkingsimon" });
 
                     var t = new ModifyChannelInformationRequest();
                     t.Title = Title;

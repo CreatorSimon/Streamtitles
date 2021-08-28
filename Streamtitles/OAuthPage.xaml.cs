@@ -80,7 +80,7 @@ namespace Streamtitles
                 var queryStringParams = response.Substring(1).Split('&').ToDictionary(c => c.Split('=')[0], c => Uri.UnescapeDataString(c.Split('=')[1]));
 
                 Data.Token = queryStringParams["access_token"];
-                Debug.WriteLine(Data.Token);
+                Data.SaveSettings();
             }
         }
 
