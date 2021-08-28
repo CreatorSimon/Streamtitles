@@ -211,20 +211,9 @@
                 <ColumnDefinition Width="527*"/>
                 <ColumnDefinition Width="973*"/>
             </Grid.ColumnDefinitions>
-            <muxc:TextBlock Text="ClientID:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="0" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
-            <muxc:TextBlock Text="Secret:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="1" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
-            <muxc:TextBlock Text="Token:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="2" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
-            <muxc:TextBlock Text="Channel:" VerticalAlignment="Center" HorizontalAlignment="Right" muxc:Grid.Column="0" muxc:Grid.Row="3" TextWrapping="Wrap" Height="53" Width="200" TextAlignment="Right" FontSize="40" FontWeight="Bold" FontFamily="Arial Black"/>
+          
 
-            <TextBox x:Name="ClientIDIn" TextAlignment="Center" PlaceholderText="Enter your Twitch client ID" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="0" Width="456" TextChanged="ClientIDInTextChanged"/>
-            <TextBox x:Name="SecretIn" TextAlignment="Center" PlaceholderText="Enter your Twitch secret" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="1" Width="456" TextChanged="SecretInTextChanged"/>
-            <TextBox x:Name="TokenIn" TextAlignment="Center" PlaceholderText="Enter your Twitch token" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="2" Width="456" TextChanged="TokenInTextChanged"/>
-            <TextBox x:Name="ChannelIn" TextAlignment="Center" PlaceholderText="Enter your Twitch channel name" muxc:Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" muxc:Grid.Row="3" Width="456" TextChanged="ChannelInTextChanged"/>
-
-            <Button x:Name="ApplyButton" Content="Apply" FontWeight="Bold" FontFamily="Arial Black" VerticalAlignment="Top"  Grid.Column="1" Margin="214,30,0,0" Grid.Row="4" Click="ApplyButtonClick"/>
-            <Button x:Name="ConnectButton" Content="Connect" FontWeight="Bold" FontFamily="Arial Black" VerticalAlignment="Top"  Grid.Column="1" Margin="339,30,0,0" Grid.Row="4" Click="ConnectButtonClick"/>
-            <TextBlock x:Name="ConnectedText" muxc:Grid.Column="1" IsColorFontEnabled="True" Foreground="Green" Visibility="Collapsed" FontWeight="Bold" FontFamily="Arial Black" HorizontalAlignment="Left" Margin="339,8,0,0" muxc:Grid.Row="8" Text="Connected!" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <TextBlock x:Name="FailedText" muxc:Grid.Column="1" IsColorFontEnabled="True" Foreground="Red" Visibility="Collapsed" FontWeight="Bold" FontFamily="Arial Black" HorizontalAlignment="Left" Margin="354,8,0,0" muxc:Grid.Row="8" Text="Failed!" TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            
 
         </Grid>
     </ScrollViewer>

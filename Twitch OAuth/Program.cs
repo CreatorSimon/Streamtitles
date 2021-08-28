@@ -13,7 +13,7 @@ namespace Twitch_OAuth
         public static async Task<int> Main(string[] args)
         {
             var p = new Program();
-            var code = await p.DoOAuthAsync(args[0], args[1], args[2]);
+            var code = await p.DoOAuthAsync(, , );
             Console.WriteLine(code);
             return 0;
         }

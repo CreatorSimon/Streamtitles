@@ -41,8 +41,6 @@ namespace Streamtitles
 
         public static string ClientID
         { get; set; }
-        public static string Secret
-        { get; set; }
         public static string Token
         { get; set; }
         public static string Title
@@ -55,6 +53,8 @@ namespace Streamtitles
         { get; set; }
         public static string CurrentGame
         { get; set; }
+        public static string Code
+        { get; set; }
         public static bool FullConnected { get; set; }
 
         public object TwitchApiAddress { get; private set; }
@@ -63,10 +63,10 @@ namespace Streamtitles
         {
             localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             api = new TwitchAPI();
+            ClientID = "24hhvenpc25ymrrjcj6t9eva2heo6n";
             CurrentTitle = "";
             StartupCheck();
             api.Helix.Settings.ClientId = ClientID;
-            api.Helix.Settings.Secret = Secret;
             api.Helix.Settings.AccessToken = Token;
         }
 
@@ -95,13 +95,14 @@ namespace Streamtitles
 
         public static bool TryTwitchConnection()
         {
+            ChangeApiCredentials();
             try
             {
                 api.Helix.Settings.Scopes = new List<AuthScopes>() { AuthScopes.Any, AuthScopes.Helix_Channel_Manage_Broadcast };
                 BackgroundWorker d = new BackgroundWorker();
                 d.DoWork += async (a, s) =>
                 {
-                    var user = await api.Helix.Users.GetUsersAsync(logins: new List<string>() { Channel });
+                    var user = await api.Helix.Users.GetUsersAsync(logins: new List<string>() { "dunkingsimon" });
                     var subscription =
                         await api.Helix.Channels.GetChannelInformationAsync(user.Users[0].Id);
                 };
@@ -124,7 +125,7 @@ namespace Streamtitles
                 BackgroundWorker d = new BackgroundWorker();
                 d.DoWork += async (a, s) =>
                 {
-                    var user = await api.Helix.Users.GetUsersAsync(logins: new List<string>() { Channel });
+                    var user = await api.Helix.Users.GetUsersAsync(logins: new List<string>() { "dunkingsimon" });
                     var subscription =
                         await api.Helix.Channels.GetChannelInformationAsync(user.Users[0].Id);
                     CurrentTitle = subscription.Data[0].Title;
@@ -317,8 +318,6 @@ namespace Streamtitles
 
         public static void SaveSettings()
         {
-            localSettings.Values["api clientid"] = ClientID;
-            localSettings.Values["api secret"] = Secret;
             localSettings.Values["api token"] = Token;
 
             localSettings.Values["channel"] = Channel;
@@ -326,11 +325,9 @@ namespace Streamtitles
 
         public static void LoadSettings()
         {
-            //ClientID = localSettings.Values["api clientid"] as string;
-            //Secret = localSettings.Values["api secret"] as string;
-            //Token = localSettings.Values["api token"] as string;
+            Token = localSettings.Values["api token"] as string;
 
-            //Channel = localSettings.Values["channel"] as string;
+            Channel = localSettings.Values["channel"] as string;
         }
 
         public static async void GenerateTitle(string Selected)
@@ -353,7 +350,6 @@ namespace Streamtitles
         public static void ChangeApiCredentials()
         {
             api.Helix.Settings.ClientId = ClientID;
-            api.Helix.Settings.Secret = Secret;
             api.Helix.Settings.AccessToken = Token;
         }
 

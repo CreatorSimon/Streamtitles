@@ -5,14 +5,20 @@
     xmlns:local="using:Streamtitles"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    >
+    mc:Ignorable="d" Background="#FF6441A5">
 
-    <RelativePanel>
-        <!--<Button x:Name="button" Content="OAuth" HorizontalAlignment="Left" Margin="22,10,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>-->
-        <Button x:Name="button" HorizontalAlignment="Left" Margin="18,22,0,0" VerticalAlignment="Top" Width="206" Height="46" Click="button_Click"
-                BorderThickness="0" Padding="0" Background="Transparent">
-            <Image Source="Assets/btn_google_sign-in.png" Stretch="UniformToFill"/>
-        </Button>
-        <WebView x:Name="Test"/>
-    </RelativePanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+
+        <Button x:Name="button" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="206" Height="46" Click="button_Click"
+                BorderThickness="0" Background="Transparent">
+            <Image Source="Assets/twitch_connect.png" Stretch="UniformToFill" HorizontalAlignment="Center"/>
+            </Button>
+            <WebView x:Name="Test" Margin="10, 10, 10, 10" Grid.Row="1"/>
+    </Grid>
+
 </Page>
