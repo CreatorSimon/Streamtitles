@@ -49,12 +49,20 @@ namespace Streamtitles
             if(Data.TryTwitchConnection())
             {
                 Data.GetCurrentTitleAndCategory();
-                CurrentTitle.Text = Data.CurrentTitle;
+                if (Data.TwitchError)
+                {
+                    CurrentTitle.Text = "Wrong Channel name!!!";
 
-                SqlSuccessText.Visibility = Visibility.Collapsed;
-                SqlFailText.Visibility = Visibility.Collapsed;
-                TwitchFailText.Visibility = Visibility.Collapsed;
-                TwitchSuccessText.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    CurrentTitle.Text = Data.CurrentTitle;
+
+                    SqlSuccessText.Visibility = Visibility.Collapsed;
+                    SqlFailText.Visibility = Visibility.Collapsed;
+                    TwitchFailText.Visibility = Visibility.Collapsed;
+                    TwitchSuccessText.Visibility = Visibility.Visible;
+                }
             }
             else
             {

@@ -40,7 +40,7 @@ namespace Streamtitles
         private static int titleid;
 
         public static string ClientID
-        { get; } = "24hhvenpc25ymrrjcj6t9eva2heo6n";
+        { get; } = "6850nmuys81xtr81ov5oxtbb0fwu3o";
         public static string Token
         { get; set; }
         public static string Title
@@ -55,7 +55,7 @@ namespace Streamtitles
         { get; set; }
         public static string Code
         { get; set; }
-        public static bool FullConnected { get; set; }
+        public static bool TwitchError { get; set; }
 
         public object TwitchApiAddress { get; private set; }
 
@@ -79,7 +79,7 @@ namespace Streamtitles
                 BackgroundWorker d = new BackgroundWorker();
                 d.DoWork += async (a, s) =>
                 {
-                    var user = await api.Helix.Users.GetUsersAsync(logins: new List<string>() { "dunkingsimon" });
+                    var user = await api.Helix.Users.GetUsersAsync(logins: new List<string>() { Channel });
 
                     var t = new ModifyChannelInformationRequest();
                     t.Title = Title;
@@ -100,9 +100,17 @@ namespace Streamtitles
                 BackgroundWorker d = new BackgroundWorker();
                 d.DoWork += async (a, s) =>
                 {
-                    var user = await api.Helix.Users.GetUsersAsync(logins: new List<string>() { "dunkingsimon" });
-                    var subscription =
-                        await api.Helix.Channels.GetChannelInformationAsync(user.Users[0].Id);
+                    var user = await api.Helix.Users.GetUsersAsync(logins: new List<string>() { Channel });
+                    try
+                    {
+                        var subscription =
+                            await api.Helix.Channels.GetChannelInformationAsync(user.Users[0].Id);
+                    }
+                    catch (Exception e) when (e is System.IndexOutOfRangeException)
+                    {
+                        TwitchError = true;
+                    }
+                    TwitchError = false;
                 };
 
                 d.RunWorkerAsync();
@@ -123,7 +131,7 @@ namespace Streamtitles
                 BackgroundWorker d = new BackgroundWorker();
                 d.DoWork += async (a, s) =>
                 {
-                    var user = await api.Helix.Users.GetUsersAsync(logins: new List<string>() { "dunkingsimon" });
+                    var user = await api.Helix.Users.GetUsersAsync(logins: new List<string>() { Channel });
                     var subscription =
                         await api.Helix.Channels.GetChannelInformationAsync(user.Users[0].Id);
                     CurrentTitle = subscription.Data[0].Title;

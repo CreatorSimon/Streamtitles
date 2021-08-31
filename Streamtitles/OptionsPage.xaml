@@ -211,9 +211,9 @@
                 <ColumnDefinition Width="527*"/>
                 <ColumnDefinition Width="973*"/>
             </Grid.ColumnDefinitions>
-          
 
-            
+            <TextBlock Text="Twitch Channel Name:" Grid.Row="0" FontSize="40" FontWeight="Bold" FontFamily="Arial Black" TextAlignment="Right" VerticalAlignment="Center"/>
+            <TextBox x:Name="ChannelName" Grid.Row="0" Grid.Column="1" PlaceholderText="Enter Twitch channel name" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Left" Width="200" Margin="20, 0, 0, 0" TextChanged="ChannelName_TextChanged" />
 
         </Grid>
     </ScrollViewer>

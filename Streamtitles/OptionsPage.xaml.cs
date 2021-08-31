@@ -17,9 +17,14 @@ namespace Streamtitles
         public OptionsPage()
         {
             this.InitializeComponent();
+            ChannelName.PlaceholderText = Data.Channel;
             Data.LoadSettings();
         }
 
-        
+        private void ChannelName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Data.Channel = ChannelName.Text;
+            Data.SaveSettings();
+        }
     }
 }

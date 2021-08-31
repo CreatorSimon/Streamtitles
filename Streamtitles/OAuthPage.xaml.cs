@@ -34,12 +34,14 @@ namespace Streamtitles
         /// <summary>
         /// OAuth 2.0 client configuration.
         /// </summary>
-        const string redirectURI = "http://localhost:50450/";
+        const string redirectURI = "https://link.dunkingsimon.de/";
         const string authorizationEndpoint = "https://id.twitch.tv/oauth2/authorize";
         const string refreshEndpoint = "https://id.twitch.tv/oauth2/token--data-urlencode?grant_type=refresh_token";
         const string tokenEndpoint = "https://id.twitch.tv/oauth2/token";
         const string validateEndpoint = "https://id.twitch.tv/oauth2/validate";
         const string userInfoEndpoint = "https://www.googleapis.com/oauth2/v3/userinfo";
+
+        private WebView view = new WebView();
 
         public OAuthPage()
         {
@@ -66,15 +68,14 @@ namespace Streamtitles
 
             output("Opening authorization request URI: " + authorizationRequest);
 
-            var view = new WebView();
-            Test.Navigate(new Uri(authorizationRequest));
-            Test.NavigationStarting += GetResponse;
+            Web.NavigationStarting += GetResponse;
+            Web.Navigate(new Uri(authorizationRequest));
         }
 
-        private async void GetResponse(object sender, WebViewNavigationStartingEventArgs args)
+        private void GetResponse(object sender, WebViewNavigationStartingEventArgs args)
         {
             var url = args.Uri;
-            if(url.IsLoopback && url.Fragment.Contains("access_token"))
+            if (url.IsLoopback && url.Fragment.Contains("access_token"))
             {
                 var response = url.Fragment;
                 var queryStringParams = response.Substring(1).Split('&').ToDictionary(c => c.Split('=')[0], c => Uri.UnescapeDataString(c.Split('=')[1]));
@@ -134,6 +135,11 @@ namespace Streamtitles
             base64 = base64.Replace("=", "");
 
             return base64;
+        }
+
+        private async void Clear_Click(object sender, RoutedEventArgs e)
+        {
+            await WebView.ClearTemporaryWebDataAsync();
         }
     }
 }

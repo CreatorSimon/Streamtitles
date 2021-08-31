@@ -12,13 +12,18 @@
             <RowDefinition Height="100" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
 
         <Button x:Name="button" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="206" Height="46" Click="button_Click"
-                BorderThickness="0" Background="Transparent">
+                BorderThickness="0" Background="Black">
             <Image Source="Assets/twitch_connect.png" Stretch="UniformToFill" HorizontalAlignment="Center"/>
             </Button>
-            <WebView x:Name="Test" Margin="10, 10, 10, 10" Grid.Row="1"/>
+        <Button x:Name="Clear" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Content="Clear Cache" Click="Clear_Click" />
+        <WebView x:Name="Web" Margin="10, 10, 10, 10" Grid.Row="1" Grid.ColumnSpan="2"/>
     </Grid>
 
 </Page>
