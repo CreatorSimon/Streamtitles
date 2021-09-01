@@ -69,6 +69,7 @@ namespace Streamtitles
             output("Opening authorization request URI: " + authorizationRequest);
 
             Web.NavigationStarting += GetResponse;
+            Web.ContentLoading += Failed;
             Web.Navigate(new Uri(authorizationRequest));
         }
 
@@ -85,6 +86,11 @@ namespace Streamtitles
             }
         }
 
+        private void Failed(object sender, WebViewContentLoadingEventArgs e)
+        {
+            Debug.WriteLine("Test");
+            
+        }
 
         /// <summary>
         /// Appends the given string to the on-screen log, and the debug console.
