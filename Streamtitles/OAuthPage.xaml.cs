@@ -68,9 +68,12 @@ namespace Streamtitles
 
             output("Opening authorization request URI: " + authorizationRequest);
 
-            Web.NavigationStarting += GetResponse;
-            Web.ContentLoading += Failed;
-            Web.Navigate(new Uri(authorizationRequest));
+            var webView = new WebView();
+            webView.NavigationStarting += GetResponse;
+            webView.Navigate(new Uri(authorizationRequest));
+
+            //Web.NavigationStarting += GetResponse;
+            //Web.Navigate(new Uri(authorizationRequest));
         }
 
         private void GetResponse(object sender, WebViewNavigationStartingEventArgs args)
