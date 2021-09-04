@@ -34,24 +34,34 @@ namespace Streamtitles
         /// <summary>
         /// OAuth 2.0 client configuration.
         /// </summary>
-        const string redirectURI = "https://link.dunkingsimon.de/";
+        const string redirectURI = "http://localhost:50450/";
         const string authorizationEndpoint = "https://id.twitch.tv/oauth2/authorize";
         const string refreshEndpoint = "https://id.twitch.tv/oauth2/token--data-urlencode?grant_type=refresh_token";
         const string tokenEndpoint = "https://id.twitch.tv/oauth2/token";
         const string validateEndpoint = "https://id.twitch.tv/oauth2/validate";
         const string userInfoEndpoint = "https://www.googleapis.com/oauth2/v3/userinfo";
+        const string loginEndpoint = "https://www.twitch.tv/login";
 
         private WebView view = new WebView();
 
         public OAuthPage()
         {
             this.InitializeComponent();
+            Web.NavigationStarting += GetResponse;
+        }
+
+        private void LoginButtonClick (object sender, RoutedEventArgs e)
+        {
+            Web.Navigate(new Uri(loginEndpoint));
+            ClearButton.Visibility = Visibility.Visible;
+            AuthButton.Visibility = Visibility.Visible;
+            LoginButton.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
         /// Starts an OAuth 2.0 Authorization Request.
         /// </summary>
-        private async void button_Click(object sender, RoutedEventArgs e)
+        private void AuthButtonClick(object sender, RoutedEventArgs e)
         {
             // Generates state and PKCE values.
 
@@ -68,12 +78,7 @@ namespace Streamtitles
 
             output("Opening authorization request URI: " + authorizationRequest);
 
-            var webView = new WebView();
-            webView.NavigationStarting += GetResponse;
-            webView.Navigate(new Uri(authorizationRequest));
-
-            //Web.NavigationStarting += GetResponse;
-            //Web.Navigate(new Uri(authorizationRequest));
+            Web.Navigate(new Uri(authorizationRequest));
         }
 
         private void GetResponse(object sender, WebViewNavigationStartingEventArgs args)
@@ -87,12 +92,6 @@ namespace Streamtitles
                 Data.Token = queryStringParams["access_token"];
                 Data.SaveSettings();
             }
-        }
-
-        private void Failed(object sender, WebViewContentLoadingEventArgs e)
-        {
-            Debug.WriteLine("Test");
-            
         }
 
         /// <summary>
@@ -146,9 +145,11 @@ namespace Streamtitles
             return base64;
         }
 
-        private async void Clear_Click(object sender, RoutedEventArgs e)
+        private async void ClearButtonClick(object sender, RoutedEventArgs e)
         {
             await WebView.ClearTemporaryWebDataAsync();
+            ClearButton.Visibility = Visibility.Collapsed;
+            LoginButton.Visibility = Visibility.Visible;
         }
     }
 }

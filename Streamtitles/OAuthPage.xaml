@@ -15,15 +15,18 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
 
-        <Button x:Name="button" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="206" Height="46" Click="button_Click"
+        <Button x:Name="LoginButton" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="206" Height="46" Click="LoginButtonClick"
                 BorderThickness="0" Background="Black">
             <Image Source="Assets/twitch_connect.png" Stretch="UniformToFill" HorizontalAlignment="Center"/>
             </Button>
-        <Button x:Name="Clear" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Content="Clear Cache" Click="Clear_Click" />
-        <WebView x:Name="Web" Margin="10, 10, 10, 10" Grid.Row="1" Grid.ColumnSpan="2" />
+        <Button x:Name="AuthButton" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="206" Height="46" FontFamily="Arial Black" FontSize="30" FontWeight="Bold" Content="Authorize"
+                BorderThickness="0" Click="AuthButtonClick" Visibility="Collapsed"/>
+        <Button x:Name="ClearButton" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" Content="Clear Cache" Click="ClearButtonClick" Visibility="Collapsed"/>
+        <WebView x:Name="Web" Margin="10, 10, 10, 10" Grid.Row="1" Grid.ColumnSpan="3" />
     </Grid>
 
 </Page>

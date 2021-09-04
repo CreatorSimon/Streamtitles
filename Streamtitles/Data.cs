@@ -40,7 +40,7 @@ namespace Streamtitles
         private static int titleid;
 
         public static string ClientID
-        { get; } = "bodq679ywlt13ynxfq9m3kwhbssj0s";
+        { get; } = "d1p14yn6nqe1ahgyvhuf2pen4ax3rn";
         public static string Token
         { get; set; }
         public static string Title
